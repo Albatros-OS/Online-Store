@@ -1,7 +1,7 @@
-// Initialize database in localStorage if not already present
+// تهيئة قاعدة البيانات في localStorage إذا لم تكن موجودة
 if (!localStorage.getItem('users')) {
     const users = [
-        { id: 1, email: 'alisaedi012@gmail.com', password: 'Ali12121997@#', country: 'Syria', phone: '1234567890', role: 'owner', balance: 1000 }
+        { id: 1, email: 'alisaedi012@gmail.com', password: btoa('Ali12121997@#'), country: 'Syria', phone: '1234567890', role: 'owner', balance: 1000 }
     ];
     localStorage.setItem('users', JSON.stringify(users));
 }
@@ -17,9 +17,22 @@ function saveToLocalStorage(key, data) {
     localStorage.setItem(key, JSON.stringify(data));
 }
 
+// التحقق من صحة البريد الإلكتروني
+function isValidEmail(email) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+}
+
+// التحقق من صحة رقم الهاتف
+function isValidPhone(phone) {
+    const phonePattern = /^[0-9]{10,15}$/;
+    return phonePattern.test(phone);
+}
+
+// تسجيل الدخول مع تشفير كلمة المرور
 function login(email, password) {
     const users = JSON.parse(localStorage.getItem('users'));
-    const user = users.find(u => u.email === email && u.password === password);
+    const user = users.find(u => u.email === email && u.password === btoa(password));
     if (user) {
         currentUser = user;
         saveToLocalStorage('currentUser', currentUser);
@@ -28,109 +41,86 @@ function login(email, password) {
     return false;
 }
 
-function register(email, password, country, phone) {
+// التسجيل مع التحقق من صحة البيانات
+function register(email, password, confirmPassword, country, phone) {
     const users = JSON.parse(localStorage.getItem('users'));
-    const existingUser = users.find(u => u.email === email);
-    if (existingUser) {
-        alert('البريد الإلكتروني مستخدم بالفعل');
+    if (!isValidEmail(email)) {
+        showAlert('البريد الإلكتروني غير صالح', 'error');
         return false;
     }
-    const newUser = { id: users.length + 1, email, password, country, phone, role: 'user', balance: 0 };
+    if (password !== confirmPassword) {
+        showAlert('كلمة المرور وتأكيد كلمة المرور غير متطابقتين', 'error');
+        return false;
+    }
+    if (!isValidPhone(phone)) {
+        showAlert('رقم الهاتف غير صالح', 'error');
+        return false;
+    }
+    if (users.find(u => u.email === email)) {
+        showAlert('البريد الإلكتروني مستخدم بالفعل', 'error');
+        return false;
+    }
+    const newUser = { id: users.length + 1, email, password: btoa(password), country, phone, role: 'user', balance: 0 };
     users.push(newUser);
     saveToLocalStorage('users', users);
-    alert('تم التسجيل بنجاح');
+    showAlert('تم التسجيل بنجاح', 'success');
     return true;
 }
 
+// تسجيل الخروج
 function logout() {
     currentUser = null;
     localStorage.removeItem('currentUser');
-    alert('تم تسجيل الخروج بنجاح');
+    showAlert('تم تسجيل الخروج بنجاح', 'info');
     window.location.href = 'index.html';
 }
 
-function addProduct(name, description, price, image) {
-    if (currentUser && currentUser.role === 'owner') {
-        const products = JSON.parse(localStorage.getItem('products'));
-        const product = { id: products.length + 1, name, description, price, image };
-        products.push(product);
-        saveToLocalStorage('products', products);
-        alert('تمت إضافة المنتج بنجاح');
-        return true;
-    }
-    alert('ليس لديك صلاحية لإضافة المنتجات');
-    return false;
-}
-
-function addBalance(amount) {
-    if (currentUser) {
-        currentUser.balance += amount;
-        const users = JSON.parse(localStorage.getItem('users'));
-        const userIndex = users.findIndex(u => u.id === currentUser.id);
-        if (userIndex !== -1) {
-            users[userIndex] = currentUser;
-            saveToLocalStorage('users', users);
-            saveToLocalStorage('currentUser', currentUser);
-            alert(`تمت إضافة ${amount} إلى رصيدك. الرصيد الحالي: ${currentUser.balance}`);
-        }
-    }
-}
-
+// تبديل الوضع الليلي
 function toggleTheme() {
     document.body.classList.toggle('dark-mode');
-    document.querySelectorAll('header, footer').forEach(element => {
-        element.classList.toggle('dark-mode');
-    });
+    const icon = document.querySelector('#theme-toggle i');
+    icon.classList.toggle('fa-moon');
+    icon.classList.toggle('fa-sun');
 }
 
-// Event listeners
-document.querySelector('#login-form')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = e.target.querySelector('#username').value;
-    const password = e.target.querySelector('#password').value;
-    if (login(email, password)) {
-        alert('تم تسجيل الدخول بنجاح');
-        window.location.href = 'account.html';
-    } else {
-        alert('بيانات الدخول غير صحيحة');
-    }
-});
+// عرض التنبيه المخصص
+function showAlert(message, type) {
+    const alertBox = document.createElement('div');
+    alertBox.className = `alert ${type}`;
+    alertBox.innerText = message;
+    document.body.appendChild(alertBox);
+    setTimeout(() => alertBox.remove(), 3000);
+}
 
+// التحقق من الجلسة عند تحميل صفحة الحساب
+if (window.location.pathname.endsWith('account.html') && !currentUser) {
+    window.location.href = 'login.html';
+}
+
+// المستمعون للأحداث
 document.querySelector('#register-form')?.addEventListener('submit', (e) => {
     e.preventDefault();
-    const email = e.target.querySelector('#email').value;
-    const password = e.target.querySelector('#password').value;
-    const country = e.target.querySelector('#country').value;
-    const phone = e.target.querySelector('#phone').value;
-    if (register(email, password, country, phone)) {
+    const email = document.querySelector('#email').value;
+    const password = document.querySelector('#password').value;
+    const confirmPassword = document.querySelector('#confirm-password').value;
+    const country = document.querySelector('#country').value;
+    const phone = document.querySelector('#phone').value;
+    if (register(email, password, confirmPassword, country, phone)) {
         window.location.href = 'login.html';
     }
 });
 
+document.querySelector('#login-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.querySelector('#username').value;
+    const password = document.querySelector('#password').value;
+    if (login(email, password)) {
+        showAlert('تم تسجيل الدخول بنجاح', 'success');
+        window.location.href = 'account.html';
+    } else {
+        showAlert('بيانات الدخول غير صحيحة', 'error');
+    }
+});
+
 document.querySelector('#logout-btn')?.addEventListener('click', logout);
-
 document.querySelector('#theme-toggle')?.addEventListener('click', toggleTheme);
-
-document.querySelector('#add-product-form')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = e.target.querySelector('#product-name').value;
-    const description = e.target.querySelector('#product-description').value;
-    const price = e.target.querySelector('#product-price').value;
-    const image = e.target.querySelector('#product-image').value;
-    addProduct(name, description, price, image);
-});
-
-document.querySelector('#add-balance-form')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const amount = parseFloat(e.target.querySelector('#balance-amount').value);
-    addBalance(amount);
-});
-
-// Display user information in "account.html"
-if (window.location.pathname.endsWith('account.html') && currentUser) {
-    document.querySelector('#account-id').innerText = currentUser.id;
-    document.querySelector('#account-email').innerText = currentUser.email;
-    document.querySelector('#account-country').innerText = currentUser.country;
-    document.querySelector('#account-phone').innerText = currentUser.phone;
-    document.querySelector('#account-balance').innerText = currentUser.balance;
-}
