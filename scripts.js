@@ -1,126 +1,96 @@
-// تهيئة قاعدة البيانات في localStorage إذا لم تكن موجودة
-if (!localStorage.getItem('users')) {
-    const users = [
-        { id: 1, email: 'alisaedi012@gmail.com', password: btoa('Ali12121997@#'), country: 'Syria', phone: '1234567890', role: 'owner', balance: 1000 }
-    ];
-    localStorage.setItem('users', JSON.stringify(users));
+// تعريف بعض المتغيرات
+const addProductForm = document.getElementById('add-product-form');
+const productTable = document.getElementById('product-table').getElementsByTagName('tbody')[0];
+
+// دالة لاسترجاع المنتجات من localStorage
+function getProducts() {
+    const products = JSON.parse(localStorage.getItem('products')) || [];
+    return products;
 }
 
-if (!localStorage.getItem('products')) {
-    const products = [];
+// دالة لإضافة منتج جديد
+function addProduct(product) {
+    const products = getProducts();
+    products.push(product);
     localStorage.setItem('products', JSON.stringify(products));
+    renderProducts();
 }
 
-let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+// دالة لعرض المنتجات في الجدول
+function renderProducts() {
+    const products = getProducts(); // استرجاع المنتجات من localStorage
+    productTable.innerHTML = ''; // تنظيف الجدول
 
-function saveToLocalStorage(key, data) {
-    localStorage.setItem(key, JSON.stringify(data));
+    // عرض المنتجات في الجدول
+    products.forEach((product, index) => {
+        const row = productTable.insertRow();
+        row.innerHTML = `
+            <td>${product.name}</td>
+            <td>${product.price}</td>
+            <td><img src="${product.image}" alt="${product.name}" style="width: 50px; height: 50px;"></td>
+            <td><button onclick="editProduct(${index})">تعديل</button></td>
+            <td><button onclick="deleteProduct(${index})">حذف</button></td>
+        `;
+    });
 }
 
-// التحقق من صحة البريد الإلكتروني
-function isValidEmail(email) {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(email);
+// دالة لتعديل منتج
+function editProduct(index) {
+    const products = getProducts();
+    const product = products[index];
+    document.getElementById('product-name').value = product.name;
+    document.getElementById('product-description').value = product.description;
+    document.getElementById('product-price').value = product.price;
+    document.getElementById('product-image').value = product.image;
+
+    // تعديل المنتج عند الضغط على الزر
+    addProductForm.onsubmit = function(event) {
+        event.preventDefault();
+        const updatedProduct = {
+            name: document.getElementById('product-name').value,
+            description: document.getElementById('product-description').value,
+            price: document.getElementById('product-price').value,
+            image: document.getElementById('product-image').value
+        };
+        
+        products[index] = updatedProduct;
+        localStorage.setItem('products', JSON.stringify(products)); // حفظ التعديلات في localStorage
+        renderProducts();
+        clearForm();
+    };
 }
 
-// التحقق من صحة رقم الهاتف
-function isValidPhone(phone) {
-    const phonePattern = /^[0-9]{10,15}$/;
-    return phonePattern.test(phone);
-}
-
-// تسجيل الدخول مع تشفير كلمة المرور
-function login(email, password) {
-    const users = JSON.parse(localStorage.getItem('users'));
-    const user = users.find(u => u.email === email && u.password === btoa(password));
-    if (user) {
-        currentUser = user;
-        saveToLocalStorage('currentUser', currentUser);
-        return true;
+// دالة لحذف منتج
+function deleteProduct(index) {
+    if (confirm("هل أنت متأكد أنك تريد حذف هذا المنتج؟")) {
+        const products = getProducts();
+        products.splice(index, 1); // إزالة المنتج من المصفوفة
+        localStorage.setItem('products', JSON.stringify(products)); // حفظ التحديثات في localStorage
+        renderProducts();
     }
-    return false;
 }
 
-// التسجيل مع التحقق من صحة البيانات
-function register(email, password, confirmPassword, country, phone) {
-    const users = JSON.parse(localStorage.getItem('users'));
-    if (!isValidEmail(email)) {
-        showAlert('البريد الإلكتروني غير صالح', 'error');
-        return false;
-    }
-    if (password !== confirmPassword) {
-        showAlert('كلمة المرور وتأكيد كلمة المرور غير متطابقتين', 'error');
-        return false;
-    }
-    if (!isValidPhone(phone)) {
-        showAlert('رقم الهاتف غير صالح', 'error');
-        return false;
-    }
-    if (users.find(u => u.email === email)) {
-        showAlert('البريد الإلكتروني مستخدم بالفعل', 'error');
-        return false;
-    }
-    const newUser = { id: users.length + 1, email, password: btoa(password), country, phone, role: 'user', balance: 0 };
-    users.push(newUser);
-    saveToLocalStorage('users', users);
-    showAlert('تم التسجيل بنجاح', 'success');
-    return true;
+// دالة لتنظيف النموذج
+function clearForm() {
+    addProductForm.reset();
 }
 
-// تسجيل الخروج
-function logout() {
-    currentUser = null;
-    localStorage.removeItem('currentUser');
-    showAlert('تم تسجيل الخروج بنجاح', 'info');
-    window.location.href = 'index.html';
-}
+// إضافة منتج جديد عند إرسال النموذج
+addProductForm.onsubmit = function(event) {
+    event.preventDefault();
 
-// تبديل الوضع الليلي
-function toggleTheme() {
-    document.body.classList.toggle('dark-mode');
-    const icon = document.querySelector('#theme-toggle i');
-    icon.classList.toggle('fa-moon');
-    icon.classList.toggle('fa-sun');
-}
+    const newProduct = {
+        name: document.getElementById('product-name').value,
+        description: document.getElementById('product-description').value,
+        price: document.getElementById('product-price').value,
+        image: document.getElementById('product-image').value
+    };
 
-// عرض التنبيه المخصص
-function showAlert(message, type) {
-    const alertBox = document.createElement('div');
-    alertBox.className = `alert ${type}`;
-    alertBox.innerText = message;
-    document.body.appendChild(alertBox);
-    setTimeout(() => alertBox.remove(), 3000);
-}
+    addProduct(newProduct); // إضافة المنتج إلى localStorage
+    clearForm();
+};
 
-// التحقق من الجلسة عند تحميل صفحة الحساب
-if (window.location.pathname.endsWith('account.html') && !currentUser) {
-    window.location.href = 'login.html';
-}
-
-// المستمعون للأحداث
-document.querySelector('#register-form')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = document.querySelector('#email').value;
-    const password = document.querySelector('#password').value;
-    const confirmPassword = document.querySelector('#confirm-password').value;
-    const country = document.querySelector('#country').value;
-    const phone = document.querySelector('#phone').value;
-    if (register(email, password, confirmPassword, country, phone)) {
-        window.location.href = 'login.html';
-    }
-});
-
-document.querySelector('#login-form')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = document.querySelector('#username').value;
-    const password = document.querySelector('#password').value;
-    if (login(email, password)) {
-        showAlert('تم تسجيل الدخول بنجاح', 'success');
-        window.location.href = 'account.html';
-    } else {
-        showAlert('بيانات الدخول غير صحيحة', 'error');
-    }
-});
-
-document.querySelector('#logout-btn')?.addEventListener('click', logout);
-document.querySelector('#theme-toggle')?.addEventListener('click', toggleTheme);
+// عرض المنتجات عند تحميل الصفحة (مستبدل بالبيانات المخزنة في localStorage)
+window.onload = function() {
+    renderProducts();
+};
