@@ -8,18 +8,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-  <header>
-    <div class="logo">
-        <img src="images/logo.png" alt="Albatros Logo">
-        <h1>Albatros</h1>
-    </div>
-</header>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Albatros Logo">
+            <h1>Albatros</h1>
+        </div>
+        <div class="header-icons">
+            <!-- زر تبديل اللغة -->
+            <select id="language-select">
+                <option value="ar">العربية</option>
+                <option value="en">English</option>
+            </select>
+            <!-- زر تبديل الوضع الليلي -->
+            <button id="theme-toggle" class="theme-icon"><i class="fa fa-moon"></i></button>
+        </div>
+    </header>
 
     <main>
         <section class="hero">
             <h2>أهلاً بك في متجر التطبيقات والألعاب Albatros</h2>
             <p>أفضل مكان لشراء التطبيقات والألعاب الرقمية</p>
             <a href="products.html" class="cta">تصفح المنتجات</a>
+        </section>
+
+        <!-- عرض الإشعارات -->
+        <div id="notifications"></div>
+
+        <!-- روابط إضافية للمميزات الجديدة -->
+        <section class="features">
+            <a href="favorites.html"><i class="fa fa-heart"></i> المفضلة</a>
+            <a href="rewards.html"><i class="fa fa-gift"></i> النقاط والمكافآت</a>
+            <a href="track-order.html"><i class="fa fa-shipping-fast"></i> تتبع الطلبات</a>
         </section>
     </main>
 
@@ -33,7 +52,7 @@
             <li><a href="products.html"><i class="fa fa-shopping-bag"></i> المنتجات</a></li>
             <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> سلة المشتريات</a></li>
             <li><a href="account.html"><i class="fa fa-user"></i> حسابي</a></li>
-            <li><button id="theme-toggle"><i class="fa fa-adjust"></i> تبديل الوضع الليلي</button></li>
+            <li><button id="theme-toggle"><i class="fa fa-adjust"></i></button></li>
         </ul>
     </nav>
 
