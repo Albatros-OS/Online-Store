@@ -6,53 +6,11 @@
     <title>تسجيل الدخول</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            direction: rtl;
-            text-align: center;
-            padding: 50px;
-        }
-        input {
-            margin: 10px 0;
-            padding: 10px;
-            width: 80%;
-            font-size: 16px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .logo h1 {
-            font-size: 30px;
-        }
-        nav ul {
-            display: flex;
-            justify-content: space-around;
-            list-style: none;
-            padding: 0;
-        }
-        nav a {
-            text-decoration: none;
-            color: #000;
-            font-size: 18px;
-        }
-        footer p {
-            margin-top: 20px;
-        }
-    </style>
 </head>
 <body>
     <header>
         <div class="logo">
-            <h1>AppGame Store</h1>
+            <h1>Albatros Store</h1>
         </div>
     </header>
 
@@ -62,7 +20,7 @@
             <li><a href="products.html"><i class="fas fa-box-open"></i> المنتجات</a></li>
             <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> سلة المشتريات</a></li>
             <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a></li>
-            <li><button id="theme-toggle"><i class="fas fa-adjust"></i> تبديل الوضع الليلي</button></li>
+            <li><a href="register.html"><i class="fas fa-user-plus"></i> تسجيل حساب جديد</a></li>
         </ul>
     </nav>
 
@@ -71,9 +29,9 @@
             <h2><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</h2>
             <form id="login-form">
                 <label for="email">البريد الإلكتروني:</label>
-                <input type="email" id="email" placeholder="البريد الإلكتروني" required />
+                <input type="email" id="email" name="email" required>
                 <label for="password">كلمة المرور:</label>
-                <input type="password" id="password" placeholder="كلمة المرور" required />
+                <input type="password" id="password" name="password" required>
                 <button type="submit"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</button>
             </form>
             <p>ليس لديك حساب؟ <a href="register.html">إنشاء حساب جديد</a></p>
@@ -81,9 +39,9 @@
     </main>
 
     <footer>
-        <p>&copy; 2024 AppGame Store</p>
+        <p>&copy; 2024 Albatros Store</p>
     </footer>
 
-    <script src="login.js"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>
