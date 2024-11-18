@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سلة المشتريات</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>AppGame Store</h1>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+            <li><a href="products.html"><i class="fas fa-box-open"></i> المنتجات</a></li>
+            <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> سلة المشتريات</a></li>
+            <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a></li>
+            <li><button id="theme-toggle"><i class="fas fa-adjust"></i> تبديل الوضع الليلي</button></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="cart">
+            <h2>سلة المشتريات</h2>
+            <div class="cart-item">
+                <p>منتج 1</p>
+                <button class="remove-btn">إزالة</button>
+            </div>
+            <div class="cart-item">
+                <p>منتج 2</p>
+                <button class="remove-btn">إزالة</button>
+            </div>
+            <p>المجموع: 200 ريال</p>
+            <button class="checkout-btn">إتمام الشراء</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 AppGame Store</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

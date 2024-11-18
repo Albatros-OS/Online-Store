@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حسابي</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Albatros Logo">
+            <h1>Albatros</h1>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+            <li><a href="products.html"><i class="fas fa-box-open"></i> المنتجات</a></li>
+            <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> سلة المشتريات</a></li>
+            <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a></li>
+            <li><button id="theme-toggle"><i class="fas fa-adjust"></i> تبديل الوضع الليلي</button></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="account">
+            <h2><i class="fas fa-user"></i> حسابي</h2>
+            <p><strong>معرف الحساب:</strong> <span id="account-id"></span></p>
+            <p><strong>البريد الإلكتروني:</strong> <span id="account-email"></span></p>
+            <p><strong>البلد:</strong> <span id="account-country"></span></p>
+            <p><strong>الرقم:</strong> <span id="account-phone"></span></p>
+            <p><strong>الرصيد:</strong> <span id="account-balance"></span></p>
+            <form id="add-balance-form">
+                <label for="balance-amount">إضافة رصيد:</label>
+                <input type="number" id="balance-amount" name="balance-amount" required>
+                <button type="submit">إضافة</button>
+            </form>
+            <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Albatros Store</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

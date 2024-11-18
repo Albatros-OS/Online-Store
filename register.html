@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء حساب جديد</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>AppGame Store</h1>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+            <li><a href="products.html"><i class="fas fa-box-open"></i> المنتجات</a></li>
+            <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> سلة المشتريات</a></li>
+            <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a></li>
+            <li><button id="theme-toggle"><i class="fas fa-adjust"></i> تبديل الوضع الليلي</button></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="register">
+            <h2><i class="fas fa-user-plus"></i> إنشاء حساب جديد</h2>
+            <form id="register-form">
+                <label for="email">البريد الإلكتروني:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">كلمة المرور:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit"><i class="fas fa-user-plus"></i> إنشاء حساب</button>
+            </form>
+            <p>لديك حساب بالفعل؟ <a href="login.html">تسجيل الدخول</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 AppGame Store</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
