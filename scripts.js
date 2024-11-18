@@ -4,12 +4,19 @@ const productTable = document.getElementById('product-table').getElementsByTagNa
 
 // دالة لاسترجاع المنتجات من localStorage
 function getProducts() {
-    const products = JSON.parse(localStorage.getItem('products')) || [];
+    const products = JSON.parse(localStorage.getItem('products'));
+    if (!products) {
+        return [];
+    }
     return products;
 }
 
 // دالة لإضافة منتج جديد
 function addProduct(product) {
+    if (!product.name || !product.price || !product.image) {
+        alert('الرجاء ملء جميع الحقول.');
+        return;
+    }
     const products = getProducts();
     products.push(product);
     localStorage.setItem('products', JSON.stringify(products));
@@ -52,7 +59,12 @@ function editProduct(index) {
             price: document.getElementById('product-price').value,
             image: document.getElementById('product-image').value
         };
-        
+
+        if (!updatedProduct.name || !updatedProduct.price || !updatedProduct.image) {
+            alert('الرجاء ملء جميع الحقول.');
+            return;
+        }
+
         products[index] = updatedProduct;
         localStorage.setItem('products', JSON.stringify(products)); // حفظ التعديلات في localStorage
         renderProducts();
@@ -92,5 +104,12 @@ addProductForm.onsubmit = function(event) {
 
 // عرض المنتجات عند تحميل الصفحة (مستبدل بالبيانات المخزنة في localStorage)
 window.onload = function() {
+    if (!localStorage.getItem('products')) {
+        const defaultProducts = [
+            { name: 'منتج افتراضي 1', price: '100', image: 'image1.jpg', description: 'وصف المنتج الافتراضي' },
+            { name: 'منتج افتراضي 2', price: '200', image: 'image2.jpg', description: 'وصف المنتج الافتراضي' }
+        ];
+        localStorage.setItem('products', JSON.stringify(defaultProducts));
+    }
     renderProducts();
 };
