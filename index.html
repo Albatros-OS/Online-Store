@@ -3,58 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Albatros Store</title>
+    <title>الرئيسية</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="logo">
-            <img src="images/logo.png" alt="Albatros Logo">
-            <h1>Albatros</h1>
-        </div>
-        <div class="header-icons">
-            <!-- زر تبديل اللغة -->
-            <select id="language-select">
-                <option value="ar">العربية</option>
-                <option value="en">English</option>
-            </select>
-            <!-- زر تبديل الوضع الليلي -->
-            <button id="theme-toggle" class="theme-icon"><i class="fa fa-moon"></i></button>
+            <h1>Albatros Store</h1>
         </div>
     </header>
 
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+            <li><a href="products.html"><i class="fas fa-box-open"></i> المنتجات</a></li>
+            <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> سلة المشتريات</a></li>
+            <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a></li>
+            <li><a href="register.html"><i class="fas fa-user-plus"></i> تسجيل حساب جديد</a></li>
+        </ul>
+    </nav>
+
     <main>
-        <section class="hero">
-            <h2>أهلاً بك في متجر التطبيقات والألعاب Albatros</h2>
-            <p>أفضل مكان لشراء التطبيقات والألعاب الرقمية</p>
-            <a href="products.html" class="cta">تصفح المنتجات</a>
-        </section>
-
-        <!-- عرض الإشعارات -->
-        <div id="notifications"></div>
-
-        <!-- روابط إضافية للمميزات الجديدة -->
-        <section class="features">
-            <a href="favorites.html"><i class="fa fa-heart"></i> المفضلة</a>
-            <a href="rewards.html"><i class="fa fa-gift"></i> النقاط والمكافآت</a>
-            <a href="track-order.html"><i class="fa fa-shipping-fast"></i> تتبع الطلبات</a>
+        <section class="welcome">
+            <h2>مرحباً بك في Albatros Store!</h2>
+            <p>استمتع بتجربة تسوق فريدة لأحدث المنتجات.</p>
         </section>
     </main>
 
     <footer>
         <p>&copy; 2024 Albatros Store</p>
     </footer>
-
-    <nav>
-        <ul>
-            <li><a href="index.html"><i class="fa fa-home"></i> الرئيسية</a></li>
-            <li><a href="products.html"><i class="fa fa-shopping-bag"></i> المنتجات</a></li>
-            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> سلة المشتريات</a></li>
-            <li><a href="account.html"><i class="fa fa-user"></i> حسابي</a></li>
-            <li><button id="theme-toggle"><i class="fa fa-adjust"></i></button></li>
-        </ul>
-    </nav>
 
     <script src="scripts.js"></script>
 </body>
