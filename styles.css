@@ -90,7 +90,6 @@ nav ul li {
 }
 
 nav ul li a {
-    color: white;
     text-decoration: none;
     font-size: 12px;
     display: flex;
@@ -101,10 +100,14 @@ nav ul li a {
 nav ul li a .fa {
     font-size: 20px;
     margin-bottom: 4px;
+    background: linear-gradient(45deg, #33528A, #33A9A0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: transform 0.3s;
 }
 
-nav ul li a:hover {
-    color: #007bff;
+nav ul li a:hover .fa {
+    transform: scale(1.2);
 }
 
 /* التنبيهات المخصصة */
@@ -178,6 +181,43 @@ form button:hover {
     background-color: #0056b3;
 }
 
+/* الشاشة الرئيسية */
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #007bff 30%, #1ac4cf);
+    color: #fff;
+    border-radius: 20px;
+    margin: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.hero h2 {
+    font-size: 36px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.hero .cta {
+    background-color: #27ae60;
+    padding: 12px 25px;
+    color: #fff;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 18px;
+    display: inline-block;
+    margin-top: 20px;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.hero .cta:hover {
+    background-color: #219150;
+    transform: translateY(-5px);
+}
+
 /* الوضع الليلي */
 body.dark-mode .alert {
     color: #1a1a1a;
@@ -189,10 +229,19 @@ body.dark-mode #language-select {
     border: 1px solid #555;
 }
 
+body.dark-mode .hero {
+    background: linear-gradient(135deg, #222 30%, #444);
+    color: #fff;
+}
+
 /* تصميم متجاوب */
 @media (max-width: 768px) {
     nav {
         padding: 8px 0;
+    }
+
+    .hero {
+        padding: 60px 20px;
     }
 
     form button {
@@ -202,6 +251,14 @@ body.dark-mode #language-select {
 }
 
 @media (max-width: 480px) {
+    .hero h2 {
+        font-size: 24px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
     form label {
         font-size: 12px;
     }
