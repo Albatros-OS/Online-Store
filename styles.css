@@ -100,14 +100,13 @@ nav ul li a {
 nav ul li a .fa {
     font-size: 20px;
     margin-bottom: 4px;
-    background: linear-gradient(45deg, #33528A, #33A9A0);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    transition: transform 0.3s;
+    color: #FFD700; /* اللون الذهبي */
+    transition: transform 0.3s, color 0.3s;
 }
 
 nav ul li a:hover .fa {
     transform: scale(1.2);
+    color: #FFC107; /* درجة أفتح من اللون الذهبي عند التمرير */
 }
 
 /* التنبيهات المخصصة */
@@ -271,4 +270,4 @@ body.dark-mode .hero {
     form button {
         font-size: 12px;
     }
-    }
+}
