@@ -23,6 +23,9 @@ header, footer {
     padding: 15px 30px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 0 0 10px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 header .logo h1 {
@@ -30,21 +33,6 @@ header .logo h1 {
     color: #ffd700;
 }
 
-/* زر تبديل اللغة */
-#language-select {
-    padding: 5px 10px;
-    border-radius: 20px;
-    border: 1px solid #007bff;
-    background-color: #fff;
-    color: #007bff;
-    cursor: pointer;
-}
-
-#language-select:focus {
-    outline: none;
-}
-
-/* زر تبديل الوضع الليلي */
 #theme-toggle {
     background-color: #ff4757;
     color: #fff;
@@ -90,97 +78,25 @@ nav ul li {
 }
 
 nav ul li a {
+    color: white;
     text-decoration: none;
-    font-size: 12px;
+    font-size: 12px; /* حجم الخط صغير */
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: 'MiSans', sans-serif;
 }
 
 nav ul li a .fa {
-    font-size: 20px;
+    font-size: 20px; /* حجم الأيقونات */
     margin-bottom: 4px;
-    color: #FFD700; /* اللون الذهبي */
-    transition: transform 0.3s, color 0.3s;
 }
 
-nav ul li a:hover .fa {
-    transform: scale(1.2);
-    color: #FFC107; /* درجة أفتح من اللون الذهبي عند التمرير */
+nav ul li a:hover {
+    color: #007bff;
 }
 
-/* التنبيهات المخصصة */
-.alert {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 15px;
-    border-radius: 10px;
-    color: #fff;
-    font-weight: bold;
-    z-index: 1000;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.alert.success {
-    background-color: #28a745;
-}
-
-.alert.error {
-    background-color: #dc3545;
-}
-
-.alert.info {
-    background-color: #17a2b8;
-}
-
-/* النماذج */
-.login, .register {
-    padding: 20px;
-    max-width: 450px;
-    margin: 0 auto;
-    background-color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-form label {
-    font-size: 14px;
-    margin-bottom: 5px;
-    color: #555;
-    display: block;
-}
-
-form input, form select {
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    margin-bottom: 15px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-form select {
-    background-color: #f8f9fa;
-}
-
-form button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-form button:hover {
-    background-color: #0056b3;
-}
-
-/* الشاشة الرئيسية */
+/* صفحة البطلة */
 .hero {
     text-align: center;
     padding: 80px 20px;
@@ -209,28 +125,100 @@ form button:hover {
     font-size: 18px;
     display: inline-block;
     margin-top: 20px;
-    transition: background-color 0.2s, transform 0.2s;
+    transition: background-color 0.2s;
 }
 
 .hero .cta:hover {
     background-color: #219150;
+}
+
+/* بطاقات المنتجات */
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.product-card {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 220px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
     transform: translateY(-5px);
 }
 
-/* الوضع الليلي */
-body.dark-mode .alert {
-    color: #1a1a1a;
+.product-card img {
+    max-width: 100%;
+    border-radius: 15px;
 }
 
-body.dark-mode #language-select {
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #555;
+.product-card h3 {
+    margin: 15px 0;
 }
 
-body.dark-mode .hero {
-    background: linear-gradient(135deg, #222 30%, #444);
+.product-card p {
+    color: #666;
+}
+
+.product-card button {
+    background-color: #007bff;
     color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.product-card button:hover {
+    background-color: #0056b3;
+}
+
+/* نموذج تسجيل الدخول والتسجيل */
+.login, .register {
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.login input, .register input {
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.login button, .register button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: none;
+}
+
+.login button:hover, .register button:hover {
+    background-color: #0056b3;
+}
+
+/* الفوتر */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 10px 10px 0 0;
 }
 
 /* تصميم متجاوب */
@@ -239,44 +227,25 @@ body.dark-mode .hero {
         padding: 8px 0;
     }
 
-    .hero {
-        padding: 60px 20px;
+    nav ul li a {
+        font-size: 11px;
     }
 
-    form button {
-        font-size: 14px;
-        padding: 10px;
+    nav ul li a .fa {
+        font-size: 18px;
+    }
+
+    .product-card {
+        width: 90%;
     }
 }
 
 @media (max-width: 480px) {
-    .hero h2 {
-        font-size: 24px;
+    nav ul li a {
+        font-size: 10px;
     }
 
-    .hero p {
-        font-size: 14px;
+    nav ul li a .fa {
+        font-size: 16px;
     }
-
-    form label {
-        font-size: 12px;
-    }
-
-    form input, form select {
-        font-size: 12px;
-        padding: 8px;
-    }
-
-    form button {
-        font-size: 12px;
-    }
-}
-
-/* تخصيص الألوان الخاصة بالأيقونات */
-nav ul li a .fa {
-    color: #ff6347; /* تغيير اللون إلى الأحمر الفاتح */
-}
-
-nav ul li a:hover .fa {
-    color: #ff4500; /* عند التمرير يصبح اللون أكثر إشراقًا */
 }
