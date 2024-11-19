@@ -1,161 +1,160 @@
-// تعريف بعض المتغيرات
-const addProductForm = document.getElementById('add-product-form');
-const productTable = document.getElementById('product-table').getElementsByTagName('tbody')[0];
-
-// تحقق إذا كان حساب المالك موجود في localStorage، وإذا لم يكن موجودًا قم بإنشائه
-if (!localStorage.getItem('owner')) {
-    const owner = {
-        email: 'alisaedi012@gmail.com',
-        password: btoa('Ali12121997@#')  // تشفير كلمة المرور باستخدام btoa
-    };
-    localStorage.setItem('owner', JSON.stringify(owner));
+// Initialize database in localStorage if not already present
+if (!localStorage.getItem('users')) {
+    const users = [
+        { id: 1, email: 'alisaedi012@gmail.com', password: 'Ali12121997@#', country: 'Syria', phone: '1234567890', role: 'owner', balance: 1000 }
+    ];
+    localStorage.setItem('users', JSON.stringify(users));
 }
 
-// دالة لتسجيل الدخول
+if (!localStorage.getItem('products')) {
+    const products = [];
+    localStorage.setItem('products', JSON.stringify(products));
+}
+
+let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+
+function saveToLocalStorage(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+}
+
 function login(email, password) {
-    const owner = JSON.parse(localStorage.getItem('owner'));
-    if (owner && owner.email === email && owner.password === btoa(password)) {
-        alert('تم تسجيل الدخول بنجاح');
-        localStorage.setItem('currentUser', JSON.stringify(owner));  // حفظ المستخدم الحالي
+    const users = JSON.parse(localStorage.getItem('users'));
+    const user = users.find(u => u.email === email && u.password === password);
+    if (user) {
+        currentUser = user;
+        saveToLocalStorage('currentUser', currentUser);
         return true;
-    } else {
-        alert('البريد الإلكتروني أو كلمة المرور غير صحيحة');
+    }
+    return false;
+}
+
+function register(email, password, country, phone) {
+    const users = JSON.parse(localStorage.getItem('users'));
+    const existingUser = users.find(u => u.email === email);
+    if (existingUser) {
+        alert('البريد الإلكتروني مستخدم بالفعل');
         return false;
     }
+    const newUser = { id: users.length + 1, email, password, country, phone, role: 'user', balance: 0 };
+    users.push(newUser);
+    saveToLocalStorage('users', users);
+    alert('تم التسجيل بنجاح');
+    return true;
 }
 
-// دالة لاسترجاع المنتجات من localStorage
-function getProducts() {
+function logout() {
+    currentUser = null;
+    localStorage.removeItem('currentUser');
+    alert('تم تسجيل الخروج بنجاح');
+    window.location.href = 'index.html';
+}
+
+function addProduct(name, description, price, image) {
     const products = JSON.parse(localStorage.getItem('products'));
-    if (!products) {
-        return [];
-    }
-    return products;
-}
-
-// دالة لإضافة منتج جديد
-function addProduct(product) {
-    if (!product.name || !product.price || !product.image) {
-        alert('الرجاء ملء جميع الحقول.');
-        return;
-    }
-    const products = getProducts();
+    const product = { id: products.length + 1, name, description, price, image };
     products.push(product);
-    localStorage.setItem('products', JSON.stringify(products));
-    renderProducts();
+    saveToLocalStorage('products', products);
+    alert('تمت إضافة المنتج بنجاح');
 }
 
-// دالة لعرض المنتجات في الجدول
-function renderProducts() {
-    const products = getProducts(); // استرجاع المنتجات من localStorage
-    productTable.innerHTML = ''; // تنظيف الجدول
-
-    // عرض المنتجات في الجدول
-    products.forEach((product, index) => {
-        const row = productTable.insertRow();
-        row.innerHTML = `
-            <td>${product.name}</td>
-            <td>${product.price}</td>
-            <td><img src="${product.image}" alt="${product.name}" style="width: 50px; height: 50px;"></td>
-            <td><button onclick="editProduct(${index})">تعديل</button></td>
-            <td><button onclick="deleteProduct(${index})">حذف</button></td>
-        `;
-    });
-}
-
-// دالة لتعديل منتج
-function editProduct(index) {
-    const products = getProducts();
-    const product = products[index];
-    document.getElementById('product-name').value = product.name;
-    document.getElementById('product-description').value = product.description;
-    document.getElementById('product-price').value = product.price;
-    document.getElementById('product-image').value = product.image;
-
-    // تعديل المنتج عند الضغط على الزر
-    addProductForm.onsubmit = function(event) {
-        event.preventDefault();
-        const updatedProduct = {
-            name: document.getElementById('product-name').value,
-            description: document.getElementById('product-description').value,
-            price: document.getElementById('product-price').value,
-            image: document.getElementById('product-image').value
-        };
-
-        if (!updatedProduct.name || !updatedProduct.price || !updatedProduct.image) {
-            alert('الرجاء ملء جميع الحقول.');
-            return;
+function addBalance(amount) {
+    if (currentUser) {
+        currentUser.balance += amount;
+        const users = JSON.parse(localStorage.getItem('users'));
+        const userIndex = users.findIndex(u => u.id === currentUser.id);
+        if (userIndex !== -1) {
+            users[userIndex] = currentUser;
+            saveToLocalStorage('users', users);
+            saveToLocalStorage('currentUser', currentUser);
+            alert(`تمت إضافة ${amount} إلى رصيدك. الرصيد الحالي: ${currentUser.balance}`);
         }
-
-        products[index] = updatedProduct;
-        localStorage.setItem('products', JSON.stringify(products)); // حفظ التعديلات في localStorage
-        renderProducts();
-        clearForm();
-    };
-}
-
-// دالة لحذف منتج
-function deleteProduct(index) {
-    if (confirm("هل أنت متأكد أنك تريد حذف هذا المنتج؟")) {
-        const products = getProducts();
-        products.splice(index, 1); // إزالة المنتج من المصفوفة
-        localStorage.setItem('products', JSON.stringify(products)); // حفظ التحديثات في localStorage
-        renderProducts();
     }
 }
 
-// دالة لتنظيف النموذج
-function clearForm() {
-    addProductForm.reset();
+function withdrawBalance(amount) {
+    if (currentUser) {
+        if (currentUser.balance >= amount) {
+            currentUser.balance -= amount;
+            const users = JSON.parse(localStorage.getItem('users'));
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+                saveToLocalStorage('users', users);
+                saveToLocalStorage('currentUser', currentUser);
+                alert(`تم سحب ${amount} من رصيدك. الرصيد الحالي: ${currentUser.balance}`);
+            }
+        } else {
+            alert('رصيد غير كافٍ');
+        }
+    }
 }
 
-// إضافة منتج جديد عند إرسال النموذج
-addProductForm.onsubmit = function(event) {
-    event.preventDefault();
-
-    const newProduct = {
-        name: document.getElementById('product-name').value,
-        description: document.getElementById('product-description').value,
-        price: document.getElementById('product-price').value,
-        image: document.getElementById('product-image').value
-    };
-
-    addProduct(newProduct); // إضافة المنتج إلى localStorage
-    clearForm();
-};
-
-// عرض المنتجات عند تحميل الصفحة (مستبدل بالبيانات المخزنة في localStorage)
-window.onload = function() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (!currentUser || currentUser.email !== 'alisaedi012@gmail.com') {
-        // إذا لم يكن هناك حساب مسجل أو الحساب ليس هو المالك، توجيه المستخدم إلى صفحة تسجيل الدخول
-        window.location.href = 'login.html';
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    const themeToggleButton = document.querySelector('#theme-toggle i');
+    if (document.body.classList.contains('dark-mode')) {
+        themeToggleButton.classList.remove('fa-sun');
+        themeToggleButton.classList.add('fa-moon');
     } else {
-        if (!localStorage.getItem('products')) {
-            const defaultProducts = [
-                { name: 'منتج افتراضي 1', price: '100', image: 'image1.jpg', description: 'وصف المنتج الافتراضي' },
-                { name: 'منتج افتراضي 2', price: '200', image: 'image2.jpg', description: 'وصف المنتج الافتراضي' }
-            ];
-            localStorage.setItem('products', JSON.stringify(defaultProducts));
-        }
-        renderProducts();
+        themeToggleButton.classList.remove('fa-moon');
+        themeToggleButton.classList.add('fa-sun');
     }
-};
+}
 
-// نموذج تسجيل الدخول
-const loginForm = document.getElementById('login-form');
-loginForm.addEventListener('submit', function(event) {
-    event.preventDefault(); // منع إرسال النموذج افتراضيًا
-
-    // جلب بيانات المدخلات
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    // تحقق من صحة البيانات
+// Event listeners
+document.querySelector('#login-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = e.target.querySelector('#username').value;
+    const password = e.target.querySelector('#password').value;
     if (login(email, password)) {
-        // عند تسجيل الدخول بنجاح، يمكنك توجيه المستخدم إلى صفحة المنتجات أو صفحة المالك
-        window.location.href = 'productPage.html';  // على سبيل المثال
+        alert('تم تسجيل الدخول بنجاح');
+        window.location.href = 'account.html';
     } else {
-        alert('الرجاء ملء جميع الحقول');
+        alert('بيانات الدخول غير صحيحة');
     }
 });
+
+document.querySelector('#register-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = e.target.querySelector('#email').value;
+    const password = e.target.querySelector('#password').value;
+    const country = e.target.querySelector('#country').value;
+    const phone = e.target.querySelector('#phone').value;
+    if (register(email, password, country, phone)) {
+        window.location.href = 'login.html';
+    }
+});
+
+document.querySelector('#logout-btn')?.addEventListener('click', logout);
+
+document.querySelector('#theme-toggle')?.addEventListener('click', toggleTheme);
+
+document.querySelector('#add-product-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = e.target.querySelector('#product-name').value;
+    const description = e.target.querySelector('#product-description').value;
+    const price = e.target.querySelector('#product-price').value;
+    const image = e.target.querySelector('#product-image').value;
+    addProduct(name, description, price, image);
+});
+
+document.querySelector('#add-balance-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const amount = parseFloat(e.target.querySelector('#balance-amount').value);
+    addBalance(amount);
+});
+
+document.querySelector('#withdraw-balance-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const amount = parseFloat(e.target.querySelector('#withdraw-amount').value);
+    withdrawBalance(amount);
+});
+
+// Display user information in "account.html"
+if (window.location.pathname.endsWith('account.html') && currentUser) {
+    document.querySelector('#account-id').innerText = currentUser.id;
+    document.querySelector('#account-email').innerText = currentUser.email;
+    document.querySelector('#account-country').innerText = currentUser.country;
+    document.querySelector('#account-phone').innerText = currentUser.phone;
+    document.querySelector('#account-balance').innerText = currentUser.balance;
+}
