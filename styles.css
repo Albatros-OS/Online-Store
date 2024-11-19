@@ -30,12 +30,6 @@ header .logo h1 {
     color: #ffd700;
 }
 
-.header-icons {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
 /* زر تبديل اللغة */
 #language-select {
     padding: 5px 10px;
@@ -89,6 +83,12 @@ nav ul {
     justify-content: space-evenly;
 }
 
+nav ul li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 nav ul li a {
     color: white;
     text-decoration: none;
@@ -96,6 +96,11 @@ nav ul li a {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+nav ul li a .fa {
+    font-size: 20px;
+    margin-bottom: 4px;
 }
 
 nav ul li a:hover {
@@ -127,50 +132,53 @@ nav ul li a:hover {
     background-color: #17a2b8;
 }
 
-/* صفحة البطلة */
-.hero {
-    text-align: center;
-    padding: 80px 20px;
-    background: linear-gradient(135deg, #007bff 30%, #1ac4cf);
-    color: #fff;
-    border-radius: 20px;
-    margin: 20px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+/* النماذج */
+.login, .register {
+    padding: 20px;
+    max-width: 450px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.hero .cta {
-    background-color: #27ae60;
-    padding: 12px 25px;
-    color: #fff;
-    border-radius: 25px;
-    font-size: 18px;
-    transition: background-color 0.2s;
+form label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555;
+    display: block;
 }
 
-.hero .cta:hover {
-    background-color: #219150;
+form input, form select {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-/* روابط المميزات الجديدة */
-.features a {
-    display: inline-block;
-    margin: 10px;
-    padding: 10px 20px;
-    border-radius: 20px;
+form select {
+    background-color: #f8f9fa;
+}
+
+form button {
     background-color: #007bff;
     color: #fff;
-    text-decoration: none;
-    font-size: 14px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.2s, transform 0.2s;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.features a:hover {
+form button:hover {
     background-color: #0056b3;
-    transform: translateY(-5px);
 }
 
-/* الوضع الليلي لعناصر جديدة */
+/* الوضع الليلي */
 body.dark-mode .alert {
     color: #1a1a1a;
 }
@@ -181,38 +189,29 @@ body.dark-mode #language-select {
     border: 1px solid #555;
 }
 
-body.dark-mode .features a {
-    background-color: #555;
-    color: #fff;
-}
-
 /* تصميم متجاوب */
 @media (max-width: 768px) {
     nav {
         padding: 8px 0;
     }
 
-    .hero {
-        padding: 60px 20px;
-    }
-
-    .features a {
-        font-size: 12px;
-        padding: 8px 15px;
+    form button {
+        font-size: 14px;
+        padding: 10px;
     }
 }
 
 @media (max-width: 480px) {
-    .hero h2 {
-        font-size: 24px;
+    form label {
+        font-size: 12px;
     }
 
-    .hero p {
-        font-size: 14px;
+    form input, form select {
+        font-size: 12px;
+        padding: 8px;
     }
 
-    .features a {
-        font-size: 10px;
-        padding: 5px 10px;
+    form button {
+        font-size: 12px;
     }
-}
+    }
