@@ -3,23 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الرئيسية</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>تسجيل الدخول | AppGame Store</title>
+    <link rel="stylesheet" href="styles.css"> <!-- رابط ملف الـ CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- خط الأيقونات -->
+    <script defer src="script.js"></script> <!-- رابط ملف الجافاسكربت -->
 </head>
 <body>
+    <!-- الشريط العلوي (Header) -->
     <header>
         <div class="logo">
             <h1>AppGame Store</h1>
         </div>
     </header>
 
+    <!-- الشاشة الرئيسية -->
     <main class="hero">
-        <h2>مرحبًا بك في AppGame Store</h2>
-        <p>أفضل مكان لتسوق الألعاب الرقمية</p>
-        <a href="products.html" class="cta">تصفح المنتجات</a>
+        <h2>تسجيل الدخول إلى حسابك</h2>
+        <p>أدخل بياناتك لتتمكن من الوصول إلى حسابك في AppGame Store</p>
+
+        <!-- النموذج الرئيسي لتسجيل الدخول -->
+        <div class="login">
+            <h2>أدخل بياناتك</h2>
+            <form id="login-form">
+                <label for="email">البريد الإلكتروني:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">كلمة المرور:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit" id="login-btn">تسجيل الدخول</button>
+            </form>
+        </div>
     </main>
 
+    <!-- الشريط السفلي (Footer) -->
+    <footer>
+        <p>&copy; 2024 جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <!-- شريط التنقل السفلي -->
     <nav>
         <ul>
             <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
