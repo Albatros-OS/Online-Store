@@ -3,52 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول | AppGame Store</title>
-    <link rel="stylesheet" href="styles.css"> <!-- رابط ملف الـ CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- خط الأيقونات -->
-    <script defer src="script.js"></script> <!-- رابط ملف الجافاسكربت -->
+    <title>Albatros Store</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <!-- الشريط العلوي (Header) -->
     <header>
         <div class="logo">
-            <h1>AppGame Store</h1>
+            <img src="images/logo.png" alt="Albatros Logo">
+            <h1>Albatros</h1>
         </div>
+        <button id="theme-toggle"><i class="fas fa-sun"></i></button>
     </header>
 
-    <!-- الشاشة الرئيسية -->
-    <main class="hero">
-        <h2>تسجيل الدخول إلى حسابك</h2>
-        <p>أدخل بياناتك لتتمكن من الوصول إلى حسابك في AppGame Store</p>
-
-        <!-- النموذج الرئيسي لتسجيل الدخول -->
-        <div class="login">
-            <h2>أدخل بياناتك</h2>
-            <form id="login-form">
-                <label for="email">البريد الإلكتروني:</label>
-                <input type="email" id="email" name="email" required>
-
-                <label for="password">كلمة المرور:</label>
-                <input type="password" id="password" name="password" required>
-
-                <button type="submit" id="login-btn">تسجيل الدخول</button>
-            </form>
-        </div>
+    <main>
+        <section class="hero">
+            <h2>أهلاً بك في متجر التطبيقات والألعاب Albatros</h2>
+            <p>أفضل مكان لشراء التطبيقات والألعاب الرقمية</p>
+            <a href="products.html" class="cta">تصفح المنتجات</a>
+        </section>
     </main>
 
-    <!-- الشريط السفلي (Footer) -->
     <footer>
-        <p>&copy; 2024 جميع الحقوق محفوظة.</p>
+        <p>&copy; 2024 Albatros Store</p>
     </footer>
 
-    <!-- شريط التنقل السفلي -->
     <nav>
         <ul>
-            <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
-            <li><a href="products.html"><i class="fas fa-box-open"></i> المنتجات</a></li>
-            <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> السلة</a></li>
-            <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a></li>
+            <li><a href="index.html"><i class="fa fa-home"></i> الرئيسية</a></li>
+            <li><a href="products.html"><i class="fa fa-shopping-bag"></i> المنتجات</a></li>
+            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> سلة المشتريات</a></li>
+            <li><a href="account.html"><i class="fa fa-user"></i> حسابي</a></li>
         </ul>
     </nav>
+
+    <script src="scripts.js"></script>
 </body>
 </html>
