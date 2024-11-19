@@ -144,14 +144,18 @@ window.onload = function() {
 
 // نموذج تسجيل الدخول
 const loginForm = document.getElementById('login-form');
-loginForm.onsubmit = function(event) {
-    event.preventDefault();
+loginForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // منع إرسال النموذج افتراضيًا
 
+    // جلب بيانات المدخلات
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
+    // تحقق من صحة البيانات
     if (login(email, password)) {
         // عند تسجيل الدخول بنجاح، يمكنك توجيه المستخدم إلى صفحة المنتجات أو صفحة المالك
         window.location.href = 'productPage.html';  // على سبيل المثال
+    } else {
+        alert('الرجاء ملء جميع الحقول');
     }
-};
+});
