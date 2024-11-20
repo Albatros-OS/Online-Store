@@ -1,7 +1,7 @@
 // Initialize database in localStorage if not already present
 if (!localStorage.getItem('users')) {
     const users = [
-        { id: 1, email: 'alisaedi012@gmail.com', password: 'Ali12121997@#', country: 'Syria', phone: '1234567890', role: 'owner', balance: 1000 }
+        { id: 1, email: 'albatros_OS@hotmail.com', password: 'Ali12121997@#', country: 'Syria', phone: '1', role: 'owner', balance: 1000, theme: 'light' }
     ];
     localStorage.setItem('users', JSON.stringify(users));
 }
@@ -17,78 +17,70 @@ function saveToLocalStorage(key, data) {
     localStorage.setItem(key, JSON.stringify(data));
 }
 
-function login(email, password) {
-    const users = JSON.parse(localStorage.getItem('users'));
-    const user = users.find(u => u.email === email && u.password === password);
-    if (user) {
-        currentUser = user;
-        saveToLocalStorage('currentUser', currentUser);
-        return true;
-    }
-    return false;
+function hashPassword(password) {
+    // A simple hash function (not suitable for production; consider using a library like bcrypt)
+    return btoa(password);
 }
 
+// Save user's dark mode preference during registration
 function register(email, password, country, phone) {
-    const users = JSON.parse(localStorage.getItem('users'));
+    const users = JSON.parse(localStorage.getItem('users')) || [];
     const existingUser = users.find(u => u.email === email);
     if (existingUser) {
         alert('البريد الإلكتروني مستخدم بالفعل');
         return false;
     }
-    const newUser = { id: users.length + 1, email, password, country, phone, role: 'user', balance: 0 };
+    const hashedPassword = hashPassword(password);
+    const newUser = { id: users.length + 1, email, password: hashedPassword, country, phone, role: 'user', balance: 0, theme: 'light' };
     users.push(newUser);
     saveToLocalStorage('users', users);
     alert('تم التسجيل بنجاح');
     return true;
 }
 
-function logout() {
-    currentUser = null;
-    localStorage.removeItem('currentUser');
-    alert('تم تسجيل الخروج بنجاح');
-    window.location.href = 'index.html';
+// Apply preference on login
+function login(email, password) {
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const hashedPassword = hashPassword(password);
+    const user = users.find(u => u.email === email && u.password === hashedPassword);
+    if (user) {
+        currentUser = user;
+        saveToLocalStorage('currentUser', currentUser);
+        applyTheme(user.theme); // Apply stored preference
+        return true;
+    }
+    return false;
 }
 
-function addProduct(name, description, price, image) {
-    const products = JSON.parse(localStorage.getItem('products'));
-    const product = { id: products.length + 1, name, description, price, image };
-    products.push(product);
-    saveToLocalStorage('products', products);
-    alert('تمت إضافة المنتج بنجاح');
-}
-
-function addBalance(amount) {
+// Save the new preference when it is changed
+function toggleTheme() {
     if (currentUser) {
-        currentUser.balance += amount;
+        if (document.body.classList.contains('dark-mode')) {
+            applyTheme('light');
+            currentUser.theme = 'light';
+        } else {
+            applyTheme('dark');
+            currentUser.theme = 'dark';
+        }
         const users = JSON.parse(localStorage.getItem('users'));
         const userIndex = users.findIndex(u => u.id === currentUser.id);
         if (userIndex !== -1) {
             users[userIndex] = currentUser;
             saveToLocalStorage('users', users);
             saveToLocalStorage('currentUser', currentUser);
-            alert(`تمت إضافة ${amount} إلى رصيدك. الرصيد الحالي: ${currentUser.balance}`);
         }
-    }
-}
-
-function withdrawBalance(amount) {
-    if (currentUser) {
-        if (currentUser.balance >= amount) {
-            currentUser.balance -= amount;
-            const users = JSON.parse(localStorage.getItem('users'));
-            const userIndex = users.findIndex(u => u.id === currentUser.id);
-            if (userIndex !== -1) {
-                users[userIndex] = currentUser;
-                saveToLocalStorage('users', users);
-                saveToLocalStorage('currentUser', currentUser);
-                alert(`تم سحب ${amount} من رصيدك. الرصيد الحالي: ${currentUser.balance}`);
-            }
+    } else {
+        if (document.body.classList.contains('dark-mode')) {
+            applyTheme('light');
+            localStorage.setItem('theme', 'light');
         } else {
-            alert('رصيد غير كافٍ');
+            applyTheme('dark');
+            localStorage.setItem('theme', 'dark');
         }
     }
 }
 
+// Function to apply the dark mode
 function applyTheme(theme) {
     if (theme === 'dark') {
         document.body.classList.add('dark-mode');
@@ -101,36 +93,30 @@ function applyTheme(theme) {
     }
 }
 
-function toggleTheme() {
-    if (document.body.classList.contains('dark-mode')) {
-        applyTheme('light');
-        localStorage.setItem('theme', 'light');
-    } else {
-        applyTheme('dark');
-        localStorage.setItem('theme', 'dark');
+// Apply the stored preference when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (currentUser) {
+        applyTheme(currentUser.theme);
+    } else if (savedTheme) {
+        applyTheme(savedTheme);
     }
-}
+});
 
-// Apply saved theme on page load
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
-    applyTheme(savedTheme);
-}
-
-// الشريط السفلي
+// Bottom bar
 let lastScrollTop = 0;
 const bottomBar = document.getElementById('bottom-bar');
 
 window.addEventListener('scroll', () => {
-  let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  if (scrollTop > lastScrollTop) {
-    // التمرير للأسفل
-    bottomBar.style.opacity = 0;
-  } else {
-    // التمرير للأعلى
-    bottomBar.style.opacity = 1;
-  }
-  lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // للهواتف أو التمرير السلبي
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollTop > lastScrollTop) {
+        // Scrolling down
+        bottomBar.style.opacity = 0;
+    } else {
+        // Scrolling up
+        bottomBar.style.opacity = 1;
+    }
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For mobile or negative scrolling
 });
 
 // Event listeners
@@ -183,12 +169,4 @@ document.querySelector('#withdraw-balance-form')?.addEventListener('submit', (e)
 
 document.querySelector('#toggle-mode')?.addEventListener('click', (e) => {
     toggleTheme();
-});
-
-// الوصول إلى البريد الإلكتروني عند النقر
-document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.location.href = link.href;
-  });
 });
