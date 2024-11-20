@@ -18,9 +18,9 @@ body.dark-mode {
 
 /* الشريط العلوي */
 .header {
-  background-color: #1a1a1a; /* أسود فاتح بدرجة واحدة */
+  background-color: #2c2c2c; /* لون رمادي غامق */
   border: 3px solid; /* زيادة سماكة الإطار */
-  border-image: linear-gradient(to right, blue, lightblue);
+  border-image: linear-gradient(to right, skyblue, lightblue);
   border-image-slice: 1;
 }
 
@@ -30,6 +30,19 @@ body.night-mode {
   color: #fff;
 }
 
+#toggle-mode {
+    background-color: #ffd700; /* اللون الأصفر */
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#toggle-mode:hover {
+    background-color: #e6ac00;
+}
+
 /* الشريط السفلي */
 #bottom-bar {
   transition: opacity 0.5s;
@@ -37,14 +50,13 @@ body.night-mode {
 
 /* الأيقونات في الشريط السفلي */
 nav ul li a .fa {
-  background: linear-gradient(to right, blue, green);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: white; /* تغيير اللون إلى الأبيض */
+  font-size: 22px; /* تكبير الأيقونات قليلاً */
 }
 
 /* الهيدر والفوتر */
 header {
-    background: black; /* الشريط العلوي الآن أسود */
+    background: #2c2c2c; /* الشريط العلوي الآن رمادي غامق */
     color: #fff;
     padding: 15px 30px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -71,74 +83,6 @@ header .logo img {
     max-width: 150px;  /* عرض اللوغو */
     height: auto;  /* الحفاظ على نسبة العرض إلى الارتفاع */
     margin-right: 10px;  /* مسافة بين اللوغو والنص */
-}
-
-#toggle-mode {
-    background-color: #ff4757;
-    color: #fff;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-}
-
-#toggle-mode:hover {
-    background-color: #e84345;
-}
-
-/* الشريط الملاحي في الأسفل */
-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #333;
-    color: white;
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-    transition: bottom 0.3s ease-in-out; /* التلاشي عند النزول */
-}
-
-nav.hidden {
-    bottom: -60px; /* إخفاء الشريط عند التمرير */
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    justify-content: space-evenly;
-}
-
-nav ul li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: 'MiSans', sans-serif;
-}
-
-nav ul li a .fa {
-    font-size: 20px;
-    margin-bottom: 4px;
-}
-
-nav ul li a:hover {
-    color: #007bff;
 }
 
 /* صفحة البطلة */
@@ -318,4 +262,4 @@ footer .contact-box {
     nav ul li a .fa {
         font-size: 16px;
     }
-    }
+}
