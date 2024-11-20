@@ -28,9 +28,15 @@ header, footer {
     align-items: center;
 }
 
-header .logo h1 {
-    font-size: 28px;
-    color: #ffd700;
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header .logo img {
+    max-width: 150px;  /* عرض اللوغو */
+    height: auto;  /* الحفاظ على نسبة العرض إلى الارتفاع */
+    margin-right: 10px;  /* مسافة بين اللوغو والنص */
 }
 
 #theme-toggle {
@@ -46,7 +52,7 @@ header .logo h1 {
     background-color: #e84345;
 }
 
-/* الشريط الملاحي */
+/* الشريط الملاحي في الأسفل */
 nav {
     position: fixed;
     bottom: 0;
@@ -226,6 +232,10 @@ footer {
 
 /* تصميم متجاوب */
 @media (max-width: 768px) {
+    header .logo img {
+        max-width: 120px;  /* تقليل حجم اللوغو على الأجهزة الصغيرة */
+    }
+
     nav {
         padding: 8px 0;
     }
@@ -244,6 +254,10 @@ footer {
 }
 
 @media (max-width: 480px) {
+    header .logo img {
+        max-width: 100px;  /* تقليل حجم اللوغو أكثر للأجهزة الأصغر */
+    }
+
     nav ul li a {
         font-size: 10px;
     }
