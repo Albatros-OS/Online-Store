@@ -101,7 +101,70 @@ function toggleTheme() {
     }
 }
 
+// الشريط السفلي
+let lastScrollTop = 0;
+const bottomBar = document.getElementById('bottom-bar');
+
+window.addEventListener('scroll', () => {
+  let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  if (scrollTop > lastScrollTop) {
+    // التمرير للأسفل
+    bottomBar.style.opacity = 0;
+  } else {
+    // التمرير للأعلى
+    bottomBar.style.opacity = 1;
+  }
+  lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // للهواتف أو التمرير السلبي
+});
+
 // Event listeners
 document.querySelector('#login-form')?.addEventListener('submit', (e) => {
     e.preventDefault();
-    const email = e.target.query
+    const email = e.target.querySelector('input[name="email"]').value;
+    const password = e.target.querySelector('input[name="password"]').value;
+    if (login(email, password)) {
+        alert('تم تسجيل الدخول بنجاح');
+    } else {
+        alert('البريد الإلكتروني أو كلمة المرور غير صحيحة');
+    }
+});
+
+document.querySelector('#register-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = e.target.querySelector('input[name="email"]').value;
+    const password = e.target.querySelector('input[name="password"]').value;
+    const country = e.target.querySelector('input[name="country"]').value;
+    const phone = e.target.querySelector('input[name="phone"]').value;
+    if (register(email, password, country, phone)) {
+        alert('تم التسجيل بنجاح');
+    }
+});
+
+document.querySelector('#logout-button')?.addEventListener('click', (e) => {
+    logout();
+});
+
+document.querySelector('#add-product-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = e.target.querySelector('input[name="name"]').value;
+    const description = e.target.querySelector('input[name="description"]').value;
+    const price = e.target.querySelector('input[name="price"]').value;
+    const image = e.target.querySelector('input[name="image"]').value;
+    addProduct(name, description, price, image);
+});
+
+document.querySelector('#add-balance-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const amount = parseFloat(e.target.querySelector('input[name="amount"]').value);
+    addBalance(amount);
+});
+
+document.querySelector('#withdraw-balance-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const amount = parseFloat(e.target.querySelector('input[name="amount"]').value);
+    withdrawBalance(amount);
+});
+
+document.querySelector('#theme-toggle')?.addEventListener('click', (e) => {
+    toggleTheme();
+});
