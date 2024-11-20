@@ -18,7 +18,7 @@ body.dark-mode {
 
 /* الهيدر والفوتر */
 header, footer {
-    background-color: #007bff;
+    background: linear-gradient(to right, #FED9B7, #F07167); /* لون متدرج للشريط العلوي */
     color: #fff;
     padding: 15px 30px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -66,6 +66,11 @@ nav {
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    transition: bottom 0.3s ease-in-out; /* التلاشي عند النزول */
+}
+
+nav.hidden {
+    bottom: -60px; /* إخفاء الشريط عند التمرير */
 }
 
 nav ul {
@@ -230,6 +235,20 @@ footer {
     border-radius: 10px 10px 0 0;
 }
 
+footer .contact-us {
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+footer .contact-box {
+    background-color: #ff7f50;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
 /* تصميم متجاوب */
 @media (max-width: 768px) {
     header .logo img {
@@ -265,4 +284,4 @@ footer {
     nav ul li a .fa {
         font-size: 16px;
     }
-}
+        }
