@@ -12,27 +12,22 @@ body {
 }
 
 body.dark-mode {
-    background-color: #1a1a1a;
+    background-color: #333333; /* لون الخلفية الداكنة في الوضع المظلم */
     color: #e0e0e0;
 }
 
 /* الشريط العلوي */
 .header {
-  background-color: black;
-  border: 2px solid;
+  background-color: #1a1a1a; /* أسود فاتح بدرجة واحدة */
+  border: 3px solid; /* زيادة سماكة الإطار */
   border-image: linear-gradient(to right, blue, lightblue);
   border-image-slice: 1;
 }
 
 /* زر تبديل الوضع النهار والليل */
 body.night-mode {
-  background-color: #000;
+  background-color: #333333; /* اللون المطلوب في الوضع الليلي */
   color: #fff;
-}
-
-body {
-  background-color: #fff;
-  color: #000;
 }
 
 /* الشريط السفلي */
@@ -40,9 +35,16 @@ body {
   transition: opacity 0.5s;
 }
 
+/* الأيقونات في الشريط السفلي */
+nav ul li a .fa {
+  background: linear-gradient(to right, blue, green);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* الهيدر والفوتر */
-header, footer {
-    background: linear-gradient(to right, #FED9B7, #F07167); /* لون متدرج للشريط العلوي */
+header {
+    background: black; /* الشريط العلوي الآن أسود */
     color: #fff;
     padding: 15px 30px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -50,6 +52,14 @@ header, footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+footer {
+    background: linear-gradient(to right, #add8e6, #1e90ff); /* لون متدرج أزرق فاتح */
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
 }
 
 header .logo {
@@ -63,7 +73,7 @@ header .logo img {
     margin-right: 10px;  /* مسافة بين اللوغو والنص */
 }
 
-#theme-toggle {
+#toggle-mode {
     background-color: #ff4757;
     color: #fff;
     border: none;
@@ -72,7 +82,7 @@ header .logo img {
     cursor: pointer;
 }
 
-#theme-toggle:hover {
+#toggle-mode:hover {
     background-color: #e84345;
 }
 
@@ -254,7 +264,7 @@ nav ul li a:hover {
 footer {
     text-align: center;
     padding: 20px;
-    background-color: #007bff;
+    background: linear-gradient(to right, #add8e6, #1e90ff); /* لون متدرج أزرق فاتح */
     color: #fff;
     border-radius: 10px 10px 0 0;
 }
