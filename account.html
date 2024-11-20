@@ -20,7 +20,7 @@
         <ul>
             <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
             <li><a href="products.html"><i class="fas fa-box-open"></i> المنتجات</a></li>
-            <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> سلة المشتريات</a></li>
+            <li><a href="wallet.html"><i class="fas fa-wallet"></i> المحفظة</a></li>
             <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a></li>
         </ul>
     </nav>
@@ -37,6 +37,11 @@
                 <label for="balance-amount">إضافة رصيد:</label>
                 <input type="number" id="balance-amount" name="balance-amount" required>
                 <button type="submit">إضافة</button>
+            </form>
+            <form id="withdraw-balance-form">
+                <label for="withdraw-amount">سحب رصيد:</label>
+                <input type="number" id="withdraw-amount" name="withdraw-amount" required>
+                <button type="submit">سحب</button>
             </form>
             <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
         </section>
