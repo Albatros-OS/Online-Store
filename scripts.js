@@ -92,14 +92,12 @@ function withdrawBalance(amount) {
 function applyTheme(theme) {
     if (theme === 'dark') {
         document.body.classList.add('dark-mode');
-        const themeToggleButton = document.querySelector('#toggle-mode i');
-        themeToggleButton.classList.remove('fa-sun');
-        themeToggleButton.classList.add('fa-moon');
+        const themeToggleButton = document.querySelector('#toggle-mode');
+        themeToggleButton.innerHTML = '<i class="fas fa-sun"></i>';
     } else {
         document.body.classList.remove('dark-mode');
-        const themeToggleButton = document.querySelector('#toggle-mode i');
-        themeToggleButton.classList.remove('fa-moon');
-        themeToggleButton.classList.add('fa-sun');
+        const themeToggleButton = document.querySelector('#toggle-mode');
+        themeToggleButton.innerHTML = '<i class="fas fa-moon"></i>';
     }
 }
 
