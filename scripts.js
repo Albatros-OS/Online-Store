@@ -89,16 +89,34 @@ function withdrawBalance(amount) {
     }
 }
 
-function toggleTheme() {
-    document.body.classList.toggle('dark-mode');
-    const themeToggleButton = document.querySelector('#theme-toggle i');
-    if (document.body.classList.contains('dark-mode')) {
+function applyTheme(theme) {
+    if (theme === 'dark') {
+        document.body.classList.add('dark-mode');
+        const themeToggleButton = document.querySelector('#toggle-mode i');
         themeToggleButton.classList.remove('fa-sun');
         themeToggleButton.classList.add('fa-moon');
     } else {
+        document.body.classList.remove('dark-mode');
+        const themeToggleButton = document.querySelector('#toggle-mode i');
         themeToggleButton.classList.remove('fa-moon');
         themeToggleButton.classList.add('fa-sun');
     }
+}
+
+function toggleTheme() {
+    if (document.body.classList.contains('dark-mode')) {
+        applyTheme('light');
+        localStorage.setItem('theme', 'light');
+    } else {
+        applyTheme('dark');
+        localStorage.setItem('theme', 'dark');
+    }
+}
+
+// Apply saved theme on page load
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    applyTheme(savedTheme);
 }
 
 // الشريط السفلي
@@ -165,6 +183,14 @@ document.querySelector('#withdraw-balance-form')?.addEventListener('submit', (e)
     withdrawBalance(amount);
 });
 
-document.querySelector('#theme-toggle')?.addEventListener('click', (e) => {
+document.querySelector('#toggle-mode')?.addEventListener('click', (e) => {
     toggleTheme();
+});
+
+// الوصول إلى البريد الإلكتروني عند النقر
+document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.location.href = link.href;
+  });
 });
