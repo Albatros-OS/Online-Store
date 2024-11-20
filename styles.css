@@ -16,6 +16,30 @@ body.dark-mode {
     color: #e0e0e0;
 }
 
+/* الشريط العلوي */
+.header {
+  background-color: black;
+  border: 2px solid;
+  border-image: linear-gradient(to right, blue, lightblue);
+  border-image-slice: 1;
+}
+
+/* زر تبديل الوضع النهار والليل */
+body.night-mode {
+  background-color: #000;
+  color: #fff;
+}
+
+body {
+  background-color: #fff;
+  color: #000;
+}
+
+/* الشريط السفلي */
+#bottom-bar {
+  transition: opacity 0.5s;
+}
+
 /* الهيدر والفوتر */
 header, footer {
     background: linear-gradient(to right, #FED9B7, #F07167); /* لون متدرج للشريط العلوي */
@@ -284,4 +308,4 @@ footer .contact-box {
     nav ul li a .fa {
         font-size: 16px;
     }
-        }
+}
