@@ -58,7 +58,7 @@ body.dark-mode #toggle-mode {
 /* الأيقونات في الشريط السفلي */
 nav ul li a .fa {
     color: #F1AC20; /* تغيير اللون إلى اللون المميز */
-    font-size: 33px; /* تكبير الأيقونات بنسبة ربع مرة */
+    font-size: 33px; /* تكبير الأيقونات بنسبة نصف مرة */
 }
 
 /* الهيدر والفوتر */
@@ -301,4 +301,4 @@ footer .contact-box {
     }
 
     nav ul li a .fa {
-        font-size: 27px;
+        font
