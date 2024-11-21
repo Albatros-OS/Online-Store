@@ -49,11 +49,23 @@ function login(email, password) {
         showMessage('تم تسجيل الدخول بنجاح', 'success');
         updateLoginIcon(true);  // Update login icon on successful login
         showLoginPopup(true);   // Show success popup
+        setTimeout(() => {
+            window.location.href = 'account.html';  // Redirect to account page after 3 seconds
+        }, 3000);
         return true;
     } else {
         showMessage('البريد الإلكتروني أو كلمة المرور غير صحيحة', 'error');
         showLoginPopup(false);  // Show error popup
         return false;
+    }
+}
+
+/* تغيير أيقونة تسجيل الدخول */
+function updateLoginIcon(isLoggedIn) {
+    if (isLoggedIn) {
+        document.getElementById('login-nav-item').innerHTML = '<a href="account.html"><i class="fas fa-user"></i> حسابي</a>';
+    } else {
+        document.getElementById('login-nav-item').innerHTML = '<a href="login.html"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a>';
     }
 }
 
@@ -103,17 +115,6 @@ function showLoginPopup(isSuccess) {
     setTimeout(function() {
         popup.style.display = 'none';
     }, 3000); // يختفي بعد 3 ثوانٍ
-}
-
-/* تغيير أيقونة تسجيل الدخول */
-function updateLoginIcon(isLoggedIn) {
-    if (isLoggedIn) {
-        document.getElementById('login-icon').style.display = 'none';
-        document.getElementById('account-icon').style.display = 'block';
-    } else {
-        document.getElementById('login-icon').style.display = 'block';
-        document.getElementById('account-icon').style.display = 'none';
-    }
 }
 
 // Event listeners
