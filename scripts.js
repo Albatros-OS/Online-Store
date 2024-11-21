@@ -85,11 +85,13 @@ function applyTheme(theme) {
     if (theme === 'dark') {
         document.body.classList.add('dark-mode');
         const themeToggleButton = document.querySelector('#toggle-mode');
-        themeToggleButton.innerHTML = '<i class="fas fa-sun"></i>';
+        themeToggleButton.innerHTML = '<i class="fas fa-sun"></i> الوضع النهاري';
+        themeToggleButton.style.backgroundColor = '#4165D5'; // اللون في الوضع الليلي
     } else {
         document.body.classList.remove('dark-mode');
         const themeToggleButton = document.querySelector('#toggle-mode');
-        themeToggleButton.innerHTML = '<i class="fas fa-moon"></i>';
+        themeToggleButton.innerHTML = '<i class="fas fa-moon"></i> الوضع الليلي';
+        themeToggleButton.style.backgroundColor = '#F1AC20'; // اللون في الوضع النهاري
     }
 }
 
