@@ -47,9 +47,12 @@ function login(email, password) {
         currentUser = user;
         saveToLocalStorage('currentUser', currentUser);
         showMessage('تم تسجيل الدخول بنجاح', 'success');
+        updateLoginIcon(true);  // Update login icon on successful login
+        showLoginPopup(true);   // Show success popup
         return true;
     } else {
         showMessage('البريد الإلكتروني أو كلمة المرور غير صحيحة', 'error');
+        showLoginPopup(false);  // Show error popup
         return false;
     }
 }
@@ -79,6 +82,38 @@ function showMessage(message, type) {
     setTimeout(() => {
         messageBox.remove();
     }, 3000);
+}
+
+/* إظهار وإخفاء المربع */
+function showLoginPopup(isSuccess) {
+    var popup = document.getElementById('login-popup');
+    var message = document.getElementById('login-message');
+    var icon = document.getElementById('login-icon');
+
+    if (isSuccess) {
+        message.textContent = 'تسجيل الدخول ناجح';
+        icon.className = 'success-icon';
+    } else {
+        message.textContent = 'تسجيل الدخول فشل';
+        icon.className = 'error-icon';
+    }
+
+    popup.style.display = 'block';
+
+    setTimeout(function() {
+        popup.style.display = 'none';
+    }, 3000); // يختفي بعد 3 ثوانٍ
+}
+
+/* تغيير أيقونة تسجيل الدخول */
+function updateLoginIcon(isLoggedIn) {
+    if (isLoggedIn) {
+        document.getElementById('login-icon').style.display = 'none';
+        document.getElementById('account-icon').style.display = 'block';
+    } else {
+        document.getElementById('login-icon').style.display = 'block';
+        document.getElementById('account-icon').style.display = 'none';
+    }
 }
 
 // Event listeners
