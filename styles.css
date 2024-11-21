@@ -59,7 +59,7 @@ body.dark-mode #toggle-mode {
 /* الأيقونات في الشريط السفلي */
 nav ul li a .fa {
     color: #F1AC20; /* تغيير اللون إلى اللون المميز */
-    font-size: 16.5px; /* تقليل حجم الأيقونات بنسبة 25% */
+    font-size: 12px; /* تصغير حجم الأيقونات */
 }
 
 /* الهيدر والفوتر */
@@ -128,7 +128,7 @@ nav ul li {
 nav ul li a {
     color: #F1AC20;
     text-decoration: none;
-    font-size: 9px; /* تقليل حجم النصوص بنسبة 25% */
+    font-size: 9px; /* تقليل حجم النصوص */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -136,7 +136,7 @@ nav ul li a {
 }
 
 nav ul li a .fa {
-    font-size: 16.5px; /* تقليل حجم الأيقونات بنسبة 25% */
+    font-size: 12px; /* تصغير حجم الأيقونات */
     margin-bottom: 4px;
 }
 
@@ -248,6 +248,7 @@ nav ul li a:hover {
     margin-bottom: 10px; /* إدراج مسافة بين الخانات */
     border-radius: 10px;
     border: 1px solid #ccc;
+    width: calc(100% - 24px); /* جعل الحقول على صف واحد */
 }
 
 .login button, .register button {
@@ -290,12 +291,3 @@ footer .contact-box {
 @media (max-width: 768px) {
     header .logo img {
         max-width: 120px;  /* تقليل حجم اللوغو على الأجهزة الصغيرة */
-    }
-
-    nav {
-        padding: 8px 0;
-    }
-
-    nav ul li a {
-        font-size: 9px; /* تصغير النصوص بنسبة 25% */
-        }
