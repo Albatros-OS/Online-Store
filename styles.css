@@ -26,7 +26,7 @@ body.dark-mode {
 
 /* زر تبديل الوضع النهار والليل */
 #toggle-mode {
-    background-color: #F1AC20; /* اللون المميز */
+    background-color: #F1AC20; /* اللون المميز في الوضع النهاري */
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -35,8 +35,11 @@ body.dark-mode {
     transition: background-color 0.3s, transform 0.3s;
 }
 
+body.dark-mode #toggle-mode {
+    background-color: #4165D5; /* اللون المميز في الوضع الليلي */
+}
+
 #toggle-mode:hover {
-    background-color: #e69a00;
     transform: scale(1.1); /* تكبير الزر عند التحويم */
 }
 
@@ -52,7 +55,7 @@ body.dark-mode {
 /* الأيقونات في الشريط السفلي */
 nav ul li a .fa {
     color: #F1AC20; /* تغيير اللون إلى اللون المميز */
-    font-size: 22px; /* تكبير الأيقونات قليلاً */
+    font-size: 33px; /* تكبير الأيقونات بنسبة نصف مرة */
 }
 
 /* الهيدر والفوتر */
@@ -121,7 +124,7 @@ nav ul li {
 nav ul li a {
     color: #F1AC20;
     text-decoration: none;
-    font-size: 12px;
+    font-size: 18px; /* تكبير النصوص بنسبة نصف مرة */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -129,7 +132,7 @@ nav ul li a {
 }
 
 nav ul li a .fa {
-    font-size: 22px;
+    font-size: 33px; /* تكبير الأيقونات بنسبة نصف مرة */
     margin-bottom: 4px;
 }
 
@@ -290,11 +293,11 @@ footer .contact-box {
     }
 
     nav ul li a {
-        font-size: 11px;
+        font-size: 15px;
     }
 
     nav ul li a .fa {
-        font-size: 18px;
+        font-size: 27px; /* تناسب مع حجم النص */
     }
 
     .product-card {
@@ -303,15 +306,4 @@ footer .contact-box {
 }
 
 @media (max-width: 480px) {
-    header .logo img {
-        max-width: 100px;  /* تقليل حجم اللوغو أكثر للأجهزة الأصغر */
-    }
-
-    nav ul li a {
-        font-size: 10px;
-    }
-
-    nav ul li a .fa {
-        font-size: 16px;
-    }
-}
+    header
