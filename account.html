@@ -13,7 +13,6 @@
             <img src="images/logo.png" alt="Albatros Logo">
             <h1>Albatros</h1>
         </div>
-        <button id="theme-toggle"><i class="fas fa-sun"></i></button>
     </header>
 
     <nav>
@@ -28,11 +27,28 @@
     <main>
         <section class="account">
             <h2><i class="fas fa-user"></i> حسابي</h2>
-            <p><strong>معرف الحساب:</strong> <span id="account-id"></span></p>
-            <p><strong>البريد الإلكتروني:</strong> <span id="account-email"></span></p>
-            <p><strong>البلد:</strong> <span id="account-country"></span></p>
-            <p><strong>الرقم:</strong> <span id="account-phone"></span></p>
-            <p><strong>الرصيد:</strong> <span id="account-balance"></span></p>
+            <div class="account-info">
+                <div class="info-item">
+                    <i class="fas fa-id-card"></i>
+                    <p><strong>معرف الحساب:</strong> <span id="account-id"></span></p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <p><strong>البريد الإلكتروني:</strong> <span id="account-email"></span></p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-flag"></i>
+                    <p><strong>البلد:</strong> <span id="account-country"></span></p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <p><strong>الرقم:</strong> <span id="account-phone"></span></p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-wallet"></i>
+                    <p><strong>الرصيد:</strong> <span id="account-balance"></span></p>
+                </div>
+            </div>
             <form id="add-balance-form">
                 <label for="balance-amount">إضافة رصيد:</label>
                 <input type="number" id="balance-amount" name="balance-amount" required>
