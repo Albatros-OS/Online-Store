@@ -25,6 +25,10 @@
     </nav>
 
     <main>
+        <div class="balance-display">
+            <i class="fas fa-wallet"></i>
+            <span id="account-balance" class="balance-value"></span>
+        </div>
         <section class="account">
             <h2><i class="fas fa-user"></i> حسابي</h2>
             <div class="account-info id">
@@ -34,6 +38,8 @@
                 <div class="info-item">
                     <p><strong>البريد الإلكتروني:</strong> <span id="account-email"></span></p>
                 </div>
+            </div>
+            <div class="account-info">
                 <div class="info-item">
                     <p><strong>الرقم:</strong> <span id="account-phone"></span></p>
                 </div>
@@ -43,19 +49,10 @@
                     <p><strong>البلد:</strong> <span id="account-country"></span></p>
                 </div>
             </div>
-            <div class="balance-display">
-                <i class="fas fa-wallet"></i>
-                <span id="account-balance" class="balance-value"></span>
-            </div>
             <form id="add-balance-form">
                 <label for="balance-amount">إضافة رصيد:</label>
                 <input type="number" id="balance-amount" name="balance-amount" required>
-                <button type="submit">إضافة</button>
-            </form>
-            <form id="withdraw-balance-form">
-                <label for="withdraw-amount">سحب رصيد:</label>
-                <input type="number" id="withdraw-amount" name="withdraw-amount" required>
-                <button type="submit">سحب</button>
+                <button type="submit"><i class="fas fa-plus"></i> إضافة الرصيد</button>
             </form>
             <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
         </section>
