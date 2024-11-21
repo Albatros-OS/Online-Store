@@ -113,93 +113,37 @@ nav ul li a:hover {
     color: #C3E8C9;
 }
 
-/* صفحة البطلة */
-.hero {
-    text-align: center;
-    padding: 80px 20px;
-    background: linear-gradient(135deg, #4165D5 30%, #F1AC20);
-    color: #fff;
-    border-radius: 20px;
-    margin: 20px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-}
-
-.hero h2 {
-    font-size: 36px;
-}
-
-.hero p {
-    font-size: 18px;
-    margin-top: 10px;
-}
-
-.hero .cta {
-    background-color: #293855;
-    padding: 12px 25px;
-    color: #fff;
-    border-radius: 25px;
-    text-decoration: none;
-    font-size: 18px;
-    display: inline-block;
-    margin-top: 20px;
-    transition: background-color 0.2s;
-}
-
-.hero .cta:hover {
-    background-color: #4165D5;
-}
-
-/* بطاقات المنتجات */
-.products {
-    display: flex;
-    flex-direction: column;
+/* صفحة الحساب */
+.account {
+    max-width: 800px;
+    margin: 0 auto;
     padding: 20px;
-}
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-}
-
-.product-card {
-    background-color: #fff;
+    background-color: #f9f9f9;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    padding: 15px;
+}
+
+.account h2 {
     text-align: center;
-    transition: transform 0.2s;
+    margin-bottom: 20px;
+    color: #4165D5;
 }
 
-.product-card:hover {
-    transform: translateY(-5px);
+.account-info {
+    background: linear-gradient(135deg, #cce5ff, #99ccff);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.product-card img {
-    max-width: 100%;
-    border-radius: 15px;
-}
-
-.product-card h3 {
-    margin: 15px 0;
-}
-
-.product-card p {
-    color: #666;
-}
-
-.product-card button {
-    background-color: #4165D5;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.product-card button:hover {
-    background-color: #293855;
+.account-info p {
+    margin: 0;
+    font-size: 16px;
+    color: #293855;
 }
 
 /* نموذج تسجيل الدخول والتسجيل */
@@ -215,4 +159,49 @@ nav ul li a:hover {
 .login input, .register input {
     padding: 12px;
     margin-bottom: 10px;
-    border-radius:
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    width: calc(100% - 24px);
+}
+
+.login button, .register button {
+    background-color: #4165D5;
+    color: #fff;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: none;
+}
+
+.login button:hover, .register button:hover {
+    background-color: #293855;
+}
+
+/* رسالة الخطأ أو النجاح */
+.message {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* الفوتر */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(to right, #4165D5, #293855);
+    color: #fff;
+    border-radius: 10px 10px 0 0;
+}
+
+footer .contact-us {
