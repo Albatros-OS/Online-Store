@@ -1,7 +1,7 @@
 // Initialize database in localStorage if not already present
 if (!localStorage.getItem('users')) {
     const users = [
-        { id: 1, email: 'albatros_OS@hotmail.com', password: 'Ali12121997@#', country: 'Syria', phone: '1', role: 'owner', balance: 1000, theme: 'light' }
+        { id: 1, email: 'albatros_OS@hotmail.com', password: 'Ali12121997@#', country: 'Syria', phone: '1', role: 'owner', balance: 1000 }
     ];
     localStorage.setItem('users', JSON.stringify(users));
 }
@@ -22,7 +22,7 @@ function hashPassword(password) {
     return btoa(password);
 }
 
-// Save user's dark mode preference during registration
+// Save user's preference during registration
 function register(email, password, country, phone) {
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const existingUser = users.find(u => u.email === email);
@@ -31,7 +31,7 @@ function register(email, password, country, phone) {
         return false;
     }
     const hashedPassword = hashPassword(password);
-    const newUser = { id: users.length + 1, email, password: hashedPassword, country, phone, role: 'user', balance: 0, theme: 'light' };
+    const newUser = { id: users.length + 1, email, password: hashedPassword, country, phone, role: 'user', balance: 0 };
     users.push(newUser);
     saveToLocalStorage('users', users);
     showMessage('تم التسجيل بنجاح', 'success');
@@ -46,7 +46,6 @@ function login(email, password) {
     if (user) {
         currentUser = user;
         saveToLocalStorage('currentUser', currentUser);
-        applyTheme(user.theme); // Apply stored preference
         showMessage('تم تسجيل الدخول بنجاح', 'success');
         return true;
     } else {
@@ -54,59 +53,6 @@ function login(email, password) {
         return false;
     }
 }
-
-// Save the new preference when it is changed
-function toggleTheme() {
-    if (currentUser) {
-        if (document.body.classList.contains('dark-mode')) {
-            applyTheme('light');
-            currentUser.theme = 'light';
-        } else {
-            applyTheme('dark');
-            currentUser.theme = 'dark';
-        }
-        const users = JSON.parse(localStorage.getItem('users'));
-        const userIndex = users.findIndex(u => u.id === currentUser.id);
-        if (userIndex !== -1) {
-            users[userIndex] = currentUser;
-            saveToLocalStorage('users', users);
-            saveToLocalStorage('currentUser', currentUser);
-        }
-    } else {
-        if (document.body.classList.contains('dark-mode')) {
-            applyTheme('light');
-            localStorage.setItem('theme', 'light');
-        } else {
-            applyTheme('dark');
-            localStorage.setItem('theme', 'dark');
-        }
-    }
-}
-
-// Function to apply the dark mode
-function applyTheme(theme) {
-    if (theme === 'dark') {
-        document.body.classList.add('dark-mode');
-        const themeToggleButton = document.querySelector('#toggle-mode');
-        themeToggleButton.innerHTML = '<i class="fas fa-sun"></i> الوضع النهاري';
-        themeToggleButton.style.backgroundColor = '#4165D5'; // اللون في الوضع الليلي
-    } else {
-        document.body.classList.remove('dark-mode');
-        const themeToggleButton = document.querySelector('#toggle-mode');
-        themeToggleButton.innerHTML = '<i class="fas fa-moon"></i> الوضع الليلي';
-        themeToggleButton.style.backgroundColor = '#F1AC20'; // اللون في الوضع النهاري
-    }
-}
-
-// Apply the stored preference when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('theme');
-    if (currentUser) {
-        applyTheme(currentUser.theme);
-    } else if (savedTheme) {
-        applyTheme(savedTheme);
-    }
-});
 
 // Bottom bar
 let lastScrollTop = 0;
@@ -153,7 +99,7 @@ document.querySelector('#register-form')?.addEventListener('submit', (e) => {
 });
 
 document.querySelector('#logout-button')?.addEventListener('click', (e) => {
-    logout();
+    // Implement logout functionality if required
 });
 
 document.querySelector('#add-product-form')?.addEventListener('submit', (e) => {
@@ -175,8 +121,4 @@ document.querySelector('#withdraw-balance-form')?.addEventListener('submit', (e)
     e.preventDefault();
     const amount = parseFloat(e.target.querySelector('input[name="amount"]').value);
     withdrawBalance(amount);
-});
-
-document.querySelector('#toggle-mode')?.addEventListener('click', (e) => {
-    toggleTheme();
 });
