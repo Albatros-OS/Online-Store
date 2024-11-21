@@ -27,14 +27,14 @@ function register(email, password, country, phone) {
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const existingUser = users.find(u => u.email === email);
     if (existingUser) {
-        alert('البريد الإلكتروني مستخدم بالفعل');
+        showMessage('البريد الإلكتروني مستخدم بالفعل', 'error');
         return false;
     }
     const hashedPassword = hashPassword(password);
     const newUser = { id: users.length + 1, email, password: hashedPassword, country, phone, role: 'user', balance: 0, theme: 'light' };
     users.push(newUser);
     saveToLocalStorage('users', users);
-    alert('تم التسجيل بنجاح');
+    showMessage('تم التسجيل بنجاح', 'success');
     return true;
 }
 
@@ -47,9 +47,12 @@ function login(email, password) {
         currentUser = user;
         saveToLocalStorage('currentUser', currentUser);
         applyTheme(user.theme); // Apply stored preference
+        showMessage('تم تسجيل الدخول بنجاح', 'success');
         return true;
+    } else {
+        showMessage('البريد الإلكتروني أو كلمة المرور غير صحيحة', 'error');
+        return false;
     }
-    return false;
 }
 
 // Save the new preference when it is changed
@@ -121,16 +124,23 @@ window.addEventListener('scroll', () => {
     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For mobile or negative scrolling
 });
 
+// Function to display success or error messages
+function showMessage(message, type) {
+    const messageBox = document.createElement('div');
+    messageBox.className = `message ${type}`;
+    messageBox.innerText = message;
+    document.body.insertBefore(messageBox, document.body.firstChild);
+    setTimeout(() => {
+        messageBox.remove();
+    }, 3000);
+}
+
 // Event listeners
 document.querySelector('#login-form')?.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = e.target.querySelector('input[name="email"]').value;
     const password = e.target.querySelector('input[name="password"]').value;
-    if (login(email, password)) {
-        alert('تم تسجيل الدخول بنجاح');
-    } else {
-        alert('البريد الإلكتروني أو كلمة المرور غير صحيحة');
-    }
+    login(email, password);
 });
 
 document.querySelector('#register-form')?.addEventListener('submit', (e) => {
@@ -139,9 +149,7 @@ document.querySelector('#register-form')?.addEventListener('submit', (e) => {
     const password = e.target.querySelector('input[name="password"]').value;
     const country = e.target.querySelector('input[name="country"]').value;
     const phone = e.target.querySelector('input[name="phone"]').value;
-    if (register(email, password, country, phone)) {
-        alert('تم التسجيل بنجاح');
-    }
+    register(email, password, country, phone);
 });
 
 document.querySelector('#logout-button')?.addEventListener('click', (e) => {
