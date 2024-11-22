@@ -11,7 +11,6 @@
     <header>
         <div class="logo">
             <img src="images/logo.png" alt="Albatros Logo">
-            <h1>Albatros</h1>
         </div>
     </header>
 
@@ -20,7 +19,7 @@
             <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
             <li><a href="products.html"><i class="fas fa-box-open"></i> المنتجات</a></li>
             <li><a href="wallet.html"><i class="fas fa-wallet"></i> المحفظة</a></li>
-            <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a></li>
+            <li id="login-nav-item"><a href="login.html"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a></li>
         </ul>
     </nav>
 
@@ -42,6 +41,11 @@
         </div>
         <p>&copy; 2024 Albatros Store</p>
     </footer>
+
+    <div id="login-popup">
+        <div id="login-icon"></div>
+        <div id="login-message"></div>
+    </div>
 
     <script src="scripts.js"></script>
 </body>
