@@ -7,70 +7,68 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* تحسين التصميم لجعل الصفحة متجاوبة */
+        /* الشريط العلوي */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+        }
+
         .logo img {
-            height: 50px; /* تصغير حجم اللوجو */
+            height: 50px; /* حجم الشعار */
             width: auto;
         }
 
-        .email-display {
-            background-color: #ff8800; /* لون مربع البريد */
-            padding: 10px;
-            border-radius: 5px;
-            color: #fff;
-        }
-
-        .btn-container {
+        /* أزرار الزاوية العلوية اليمنى */
+        .top-right-buttons {
             display: flex;
-            justify-content: center;
-            gap: 15px;
+            align-items: center;
+            gap: 10px; /* مسافة بين الأزرار */
         }
 
-        .btn {
-            text-decoration: none;
-            background-color: #007bff;
-            color: #fff;
+        .menu-button, .theme-toggle button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: white;
+            color: black;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 100;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .menu-item {
             padding: 10px 20px;
-            border-radius: 20px;
-            transition: background-color 0.3s;
+            border-bottom: 1px solid #ddd;
         }
 
-        .btn:hover {
-            background-color: #0056b3;
+        .menu-item:last-child {
+            border-bottom: none;
         }
 
-        .content-box {
-            text-align: center;
-            margin: 20px auto;
-            max-width: 600px;
+        .menu-item a {
+            text-decoration: none;
+            color: #333;
         }
 
-        .hero {
-            padding: 50px 20px;
-            background: linear-gradient(135deg, #007bff 30%, #1ac4cf);
-            color: #fff;
-            border-radius: 10px;
-            margin: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        @media (max-width: 768px) {
-            .btn-container {
-                flex-direction: column;
-            }
-
-            .hero {
-                padding: 30px 15px;
-                margin: 10px;
-            }
-
-            nav ul li a {
-                font-size: 11px; /* تصغير حجم الخط */
-            }
-
-            nav ul li a .fa {
-                font-size: 18px; /* تصغير الأيقونات */
-            }
+        .theme-toggle button {
+            font-size: 18px;
         }
     </style>
 </head>
@@ -79,13 +77,17 @@
         <div class="logo">
             <img src="images/logo.png" alt="Albatros Logo">
         </div>
-        <button class="menu-button" onclick="toggleDropdown()">☰</button>
-        <div class="dropdown-menu" id="dropdownMenu">
-            <div class="menu-item"><a href="profile.html">حسابي</a></div>
-            <div class="menu-item theme-toggle">
+        <div class="top-right-buttons">
+            <button class="menu-button" onclick="toggleDropdown()">☰</button>
+            <div class="theme-toggle">
                 <button id="theme-toggle-sun" onclick="toggleTheme()">🌞</button>
                 <button id="theme-toggle-moon" style="display: none;" onclick="toggleTheme()">🌙</button>
             </div>
+        </div>
+        <div class="dropdown-menu" id="dropdownMenu">
+            <div class="menu-item"><a href="profile.html">حسابي</a></div>
+            <div class="menu-item"><a href="settings.html">الإعدادات</a></div>
+            <div class="menu-item"><a href="logout.html">تسجيل الخروج</a></div>
         </div>
     </header>
 
@@ -117,33 +119,26 @@
         <p>&copy; 2024 Albatros Store</p>
     </footer>
 
-    <div id="login-popup">
-        <div id="login-icon"></div>
-        <div id="login-message"></div>
-    </div>
-
     <script>
         // التبديل بين الوضع الليلي والنهاري
         function toggleTheme() {
             const body = document.body;
-            const sunButton = document.getElementById("theme-toggle-sun");
-            const moonButton = document.getElementById("theme-toggle-moon");
-
-            if (body.classList.contains("dark-mode")) {
-                body.classList.remove("dark-mode");
-                sunButton.style.display = "inline-block";
-                moonButton.style.display = "none";
+            const sunButton = document.getElementById('theme-toggle-sun');
+            const moonButton = document.getElementById('theme-toggle-moon');
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                sunButton.style.display = 'none';
+                moonButton.style.display = 'inline-block';
             } else {
-                body.classList.add("dark-mode");
-                sunButton.style.display = "none";
-                moonButton.style.display = "inline-block";
+                sunButton.style.display = 'inline-block';
+                moonButton.style.display = 'none';
             }
         }
 
-        // عرض وإخفاء القائمة المنسدلة
+        // إظهار القائمة المنسدلة
         function toggleDropdown() {
-            const menu = document.getElementById("dropdownMenu");
-            menu.classList.toggle("show");
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            dropdownMenu.classList.toggle('show');
         }
     </script>
 </body>
