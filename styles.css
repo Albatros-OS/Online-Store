@@ -20,18 +20,74 @@ body.dark-mode {
 header, footer {
     background-color: #007bff;
     color: #fff;
-    padding: 15px 30px;
+    padding: 10px 30px; /* تصغير الشريط العلوي */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 0 0 10px 10px;
 }
 
 header .logo h1 {
-    font-size: 28px;
+    font-size: 24px; /* تصغير الشعار */
     color: #ffd700;
 }
 
-#theme-toggle {
-    background-color: #ff4757;
+header .menu-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* قائمة منسدلة */
+header .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    background: #fff;
+    color: #333;
+    width: 20%; /* تغطي 20% من الشاشة */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+header .dropdown-menu.show {
+    display: block;
+}
+
+header .dropdown-menu .menu-item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+header .dropdown-menu .menu-item:last-child {
+    border-bottom: none;
+}
+
+header .dropdown-menu .menu-item a {
+    text-decoration: none;
+    color: #333;
+}
+
+header .dropdown-menu .menu-item a:hover {
+    color: #007bff;
+}
+
+header .dropdown-menu .theme-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#theme-toggle-sun {
+    background-color: #ffd700; /* زر الوضع النهاري */
     color: #fff;
     border: none;
     padding: 8px 15px;
@@ -39,8 +95,13 @@ header .logo h1 {
     cursor: pointer;
 }
 
-#theme-toggle:hover {
-    background-color: #e84345;
+#theme-toggle-moon {
+    background-color: #6c757d; /* زر الوضع الليلي */
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
 }
 
 /* الشريط الملاحي في الأسفل */
@@ -77,7 +138,7 @@ nav ul li {
 nav ul li a {
     color: white;
     text-decoration: none;
-    font-size: 12px; /* حجم الخط صغير */
+    font-size: 13px; /* تكبير حجم الخط */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -85,7 +146,7 @@ nav ul li a {
 }
 
 nav ul li a .fa {
-    font-size: 20px; /* حجم الأيقونات */
+    font-size: 22px; /* تكبير حجم الأيقونات */
     margin-bottom: 4px;
 }
 
@@ -187,6 +248,8 @@ nav ul li a:hover {
     background-color: #fff;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
 }
 
 .login input, .register input {
@@ -267,6 +330,13 @@ footer {
     border-radius: 10px 10px 0 0;
 }
 
+footer .email-box {
+    background-color: #ff8800; /* تعديل لون مربع البريد */
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+
 /* تصميم متجاوب */
 @media (max-width: 768px) {
     nav {
@@ -278,11 +348,15 @@ footer {
     }
 
     nav ul li a .fa {
-        font-size: 18px;
+        font-size: 20px;
     }
 
     .product-card {
         width: 90%;
+    }
+
+    .hero {
+        padding: 60px 10px;
     }
 }
 
@@ -292,6 +366,14 @@ footer {
     }
 
     nav ul li a .fa {
-        font-size: 16px;
+        font-size: 18px;
     }
-        }
+
+    .product-card {
+        width: 100%;
+    }
+
+    .hero {
+        padding: 40px 5px;
+    }
+}
