@@ -6,6 +6,71 @@
     <title>الصفحة الرئيسية</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* الشريط العلوي */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+        }
+
+        .logo img {
+            height: 50px; /* حجم الشعار */
+            width: auto;
+        }
+
+        /* أزرار الزاوية العلوية اليمنى */
+        .top-right-buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* مسافة بين الأزرار */
+        }
+
+        .menu-button, .theme-toggle button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: white;
+            color: black;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 100;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .menu-item {
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .theme-toggle button {
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -15,8 +80,8 @@
         <div class="top-right-buttons">
             <button class="menu-button" onclick="toggleDropdown()">☰</button>
             <div class="theme-toggle">
-                <button id="theme-toggle-sun" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
-                <button id="theme-toggle-moon" style="display: none;" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+                <button id="theme-toggle-sun" onclick="toggleTheme()">🌞</button>
+                <button id="theme-toggle-moon" style="display: none;" onclick="toggleTheme()">🌙</button>
             </div>
         </div>
         <div class="dropdown-menu" id="dropdownMenu">
@@ -41,8 +106,8 @@
                 <p>Albatros هو موقعك الأفضل الذي يقدم خدمات تطبيقات السوشيال ميديا وشحن التطبيقات والألعاب</p>
             </div>
             <div class="btn-container">
-                <a href="products.html" class="cta">منتجاتنا</a>
-                <a href="register.html" class="cta">إنشاء حساب</a>
+                <a href="products.html" class="btn">منتجاتنا</a>
+                <a href="register.html" class="btn">إنشاء حساب</a>
             </div>
         </section>
     </main>
