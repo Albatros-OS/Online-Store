@@ -1,4 +1,4 @@
-// Initialize database in localStorage if not already present
+// تهيئة قاعدة البيانات في localStorage إذا لم تكن موجودة
 if (!localStorage.getItem('users')) {
     const users = [
         { id: 1, email: 'albatros_OS@hotmail.com', password: 'Ali12121997@#', country: 'Syria', phone: '1', role: 'owner', balance: 1000 }
@@ -13,16 +13,17 @@ if (!localStorage.getItem('products')) {
 
 let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
 
+// حفظ البيانات في LocalStorage
 function saveToLocalStorage(key, data) {
     localStorage.setItem(key, JSON.stringify(data));
 }
 
+// دالة تجزئة كلمات المرور (للاختبار فقط، استخدم مكتبة أكثر أمانًا للإنتاج)
 function hashPassword(password) {
-    // A simple hash function (not suitable for production; consider using a library like bcrypt)
     return btoa(password);
 }
 
-// Save user's preference during registration
+// تسجيل مستخدم جديد
 function register(email, password, country, phone) {
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const existingUser = users.find(u => u.email === email);
@@ -38,7 +39,7 @@ function register(email, password, country, phone) {
     return true;
 }
 
-// Apply preference on login
+// تسجيل الدخول
 function login(email, password) {
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const hashedPassword = hashPassword(password);
@@ -46,61 +47,98 @@ function login(email, password) {
     if (user) {
         currentUser = user;
         saveToLocalStorage('currentUser', currentUser);
-        showMessage('تم تسجيل الدخول بنجاح', 'success');
-        updateLoginIcon(true);  // Update login icon on successful login
-        showLoginPopup(true);   // Show success popup
+        updateLoginIcon(true);
+        showLoginPopup(true);
         setTimeout(() => {
-            window.location.href = 'account.html';  // Redirect to account page after 3 seconds
+            window.location.href = 'account.html';
         }, 3000);
         return true;
     } else {
         showMessage('البريد الإلكتروني أو كلمة المرور غير صحيحة', 'error');
-        showLoginPopup(false);  // Show error popup
+        showLoginPopup(false);
         return false;
     }
 }
 
-/* تغيير أيقونة تسجيل الدخول */
+// تحديث أيقونة تسجيل الدخول
 function updateLoginIcon(isLoggedIn) {
+    const loginNavItem = document.getElementById('login-nav-item');
     if (isLoggedIn) {
-        document.getElementById('login-nav-item').innerHTML = '<a href="account.html"><i class="fas fa-user"></i> حسابي</a>';
+        loginNavItem.innerHTML = '<a href="account.html"><i class="fas fa-user"></i> حسابي</a>';
     } else {
-        document.getElementById('login-nav-item').innerHTML = '<a href="login.html"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a>';
+        loginNavItem.innerHTML = '<a href="login.html"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a>';
     }
 }
 
-// Bottom bar
-let lastScrollTop = 0;
-const bottomBar = document.getElementById('bottom-bar');
+// تسجيل الخروج
+function logout() {
+    currentUser = null;
+    localStorage.removeItem('currentUser');
+    updateLoginIcon(false);
+    window.location.href = 'index.html';
+}
 
-window.addEventListener('scroll', () => {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    if (scrollTop > lastScrollTop) {
-        // Scrolling down
-        bottomBar.style.opacity = 0;
+// إضافة منتج
+function addProduct(name, description, price, image) {
+    const products = JSON.parse(localStorage.getItem('products')) || [];
+    const newProduct = { id: products.length + 1, name, description, price: parseFloat(price), image };
+    products.push(newProduct);
+    saveToLocalStorage('products', products);
+    showMessage('تم إضافة المنتج بنجاح', 'success');
+}
+
+// إضافة رصيد
+function addBalance(amount) {
+    if (currentUser && amount > 0) {
+        currentUser.balance += amount;
+        saveToLocalStorage('currentUser', currentUser);
+
+        const users = JSON.parse(localStorage.getItem('users'));
+        const userIndex = users.findIndex(u => u.id === currentUser.id);
+        users[userIndex] = currentUser;
+        saveToLocalStorage('users', users);
+
+        showMessage(`تم إضافة ${amount} ريال إلى رصيدك`, 'success');
+        document.getElementById('account-balance').textContent = `${currentUser.balance} ريال`;
     } else {
-        // Scrolling up
-        bottomBar.style.opacity = 1;
+        showMessage('الرجاء إدخال مبلغ صحيح!', 'error');
     }
-    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For mobile or negative scrolling
-});
+}
 
-// Function to display success or error messages
+// سحب الرصيد
+function withdrawBalance(amount) {
+    if (currentUser && amount > 0 && currentUser.balance >= amount) {
+        currentUser.balance -= amount;
+        saveToLocalStorage('currentUser', currentUser);
+
+        const users = JSON.parse(localStorage.getItem('users'));
+        const userIndex = users.findIndex(u => u.id === currentUser.id);
+        users[userIndex] = currentUser;
+        saveToLocalStorage('users', users);
+
+        showMessage(`تم سحب ${amount} ريال من رصيدك`, 'success');
+        document.getElementById('account-balance').textContent = `${currentUser.balance} ريال`;
+    } else {
+        showMessage('رصيد غير كافٍ أو مبلغ غير صحيح!', 'error');
+    }
+}
+
+// عرض الرسائل للمستخدم
 function showMessage(message, type) {
     const messageBox = document.createElement('div');
     messageBox.className = `message ${type}`;
-    messageBox.innerText = message;
+    messageBox.textContent = message;
     document.body.insertBefore(messageBox, document.body.firstChild);
     setTimeout(() => {
         messageBox.remove();
     }, 3000);
 }
 
-/* إظهار وإخفاء المربع */
+// عرض أو إخفاء نافذة تسجيل الدخول
 function showLoginPopup(isSuccess) {
-    var popup = document.getElementById('login-popup');
-    var message = document.getElementById('login-message');
-    var icon = document.getElementById('login-icon');
+    const popup = document.getElementById('login-popup');
+    const message = document.getElementById('login-message');
+    const icon = document.getElementById('login-icon');
 
     if (isSuccess) {
         message.textContent = 'تسجيل الدخول ناجح';
@@ -112,12 +150,12 @@ function showLoginPopup(isSuccess) {
 
     popup.style.display = 'block';
 
-    setTimeout(function() {
+    setTimeout(() => {
         popup.style.display = 'none';
-    }, 3000); // يختفي بعد 3 ثوانٍ
+    }, 3000);
 }
 
-// Event listeners
+// تهيئة الأزرار والنماذج
 document.querySelector('#login-form')?.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = e.target.querySelector('input[name="email"]').value;
@@ -134,27 +172,10 @@ document.querySelector('#register-form')?.addEventListener('submit', (e) => {
     register(email, password, country, phone);
 });
 
-document.querySelector('#logout-button')?.addEventListener('click', (e) => {
-    // Implement logout functionality if required
-});
-
-document.querySelector('#add-product-form')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = e.target.querySelector('input[name="name"]').value;
-    const description = e.target.querySelector('input[name="description"]').value;
-    const price = e.target.querySelector('input[name="price"]').value;
-    const image = e.target.querySelector('input[name="image"]').value;
-    addProduct(name, description, price, image);
-});
+document.querySelector('#logout-button')?.addEventListener('click', logout);
 
 document.querySelector('#add-balance-form')?.addEventListener('submit', (e) => {
     e.preventDefault();
-    const amount = parseFloat(e.target.querySelector('input[name="amount"]').value);
+    const amount = parseFloat(e.target.querySelector('input[name="balance-amount"]').value);
     addBalance(amount);
-});
-
-document.querySelector('#withdraw-balance-form')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const amount = parseFloat(e.target.querySelector('input[name="amount"]').value);
-    withdrawBalance(amount);
 });
