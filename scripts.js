@@ -104,10 +104,10 @@ function showLoginPopup(isSuccess) {
 
     if (isSuccess) {
         message.textContent = 'تسجيل الدخول ناجح';
-        icon.className = 'success-icon';
+        icon.className = 'fas fa-check-circle success-icon';
     } else {
         message.textContent = 'تسجيل الدخول فشل';
-        icon.className = 'error-icon';
+        icon.className = 'fas fa-times-circle error-icon';
     }
 
     popup.style.display = 'block';
