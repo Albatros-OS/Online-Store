@@ -16,7 +16,7 @@ body {
     height: 40px; /* تصغير الشريط العلوي */
     background-color: #8ec97b;
     border: 3px solid;
-    border-image: linear-gradient(to right, #F1AC20, #C3E8C9);
+    border-image: linear-gradient(to right, #8ec97b, #8ec97b);
     border-image-slice: 1;
     position: relative;
 }
@@ -29,7 +29,7 @@ body {
 /* شريط الحقوق في أسفل الموقع */
 .footer {
     background-color: #8ec97b;
-    background: linear-gradient(to right, #4165D5, #293855);
+    background: linear-gradient(to right, #8ec97b, #8ec97b);
     color: #fff;
     padding: 20px;
     border-radius: 10px 10px 0 0;
@@ -58,7 +58,7 @@ footer .email-display {
 
 /* الأيقونات في الشريط السفلي */
 nav ul li a .fa {
-    color: #F1AC20;
+    color: #246bfd;
     font-size: 18px;
 }
 
