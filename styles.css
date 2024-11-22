@@ -13,7 +13,7 @@ body {
 
 /* الشريط العلوي */
 .header {
-    height: 50px; /* مثال لتصغير الشريط العلوي */
+    height: 40px; /* تصغير الشريط العلوي */
     background-color: #8ec97b;
     border: 3px solid;
     border-image: linear-gradient(to right, #F1AC20, #C3E8C9);
@@ -317,4 +317,10 @@ footer .contact-box {
     }
 
     nav ul li a .fa {
-        font-size: 16px
+        font-size: 16px;
+    }
+}
+
+/* مربع تسجيل الدخول */
+#login-popup {
+    position
