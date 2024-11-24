@@ -35,8 +35,6 @@ header .logo {
 header .search-bar {
     flex: 1;
     margin: 0 10px;
-    display: flex;
-    align-items: center;
     position: relative;
 }
 
@@ -46,7 +44,6 @@ header .search-bar input {
     border-radius: 20px;
     border: 1px solid #ccc;
     outline: none;
-    font-size: 14px;
     transition: border 0.3s;
 }
 
@@ -77,7 +74,6 @@ header .search-bar .search-icon {
     border-radius: 15px;
     background-color: #f9f9f9;
     cursor: pointer;
-    font-size: 14px;
     transition: background-color 0.3s;
 }
 
@@ -103,6 +99,37 @@ header .search-bar .search-icon {
     background-color: #007bff;
 }
 
+/* النماذج */
+.login, .register {
+    padding: 20px;
+    max-width: 400px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.login input, .register input {
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.login button, .register button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login button:hover, .register button:hover {
+    background-color: #0056b3;
+}
+
 /* قائمة المفضلة */
 .favorites {
     display: flex;
@@ -119,8 +146,8 @@ header .search-bar .search-icon {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
-    border-bottom: 1px solid #eee;
     padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
 }
 
 .favorites .favorite-item img {
@@ -133,13 +160,11 @@ header .search-bar .search-icon {
 .favorites .favorite-item h4 {
     margin: 0;
     flex: 1;
-    font-size: 16px;
 }
 
 .favorites .favorite-item .remove {
     color: #ff0000;
     cursor: pointer;
-    font-size: 14px;
     transition: color 0.3s;
 }
 
@@ -160,22 +185,13 @@ nav {
     padding: 10px 0;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
 
 nav ul {
     display: flex;
     list-style: none;
-    padding: 0;
-    margin: 0;
     width: 100%;
     justify-content: space-evenly;
-}
-
-nav ul li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 nav ul li a {
@@ -187,42 +203,7 @@ nav ul li a {
     align-items: center;
 }
 
-nav ul li a .fa {
-    font-size: 22px;
-    margin-bottom: 4px;
-}
-
 nav ul li a:hover {
-    color: #007bff;
-}
-
-/* تتبع الطلبات */
-.track-order {
-    max-width: 600px;
-    margin: 20px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.track-order .order-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.track-order .order-item:last-child {
-    border-bottom: none;
-}
-
-.track-order .order-item h4 {
-    margin: 0;
-}
-
-.track-order .order-item span {
     color: #007bff;
 }
 
@@ -253,12 +234,4 @@ nav ul li a:hover {
     nav ul li a {
         font-size: 12px;
     }
-
-    nav ul li a .fa {
-        font-size: 18px;
-    }
-
-    .favorites {
-        max-width: 100%;
-    }
-    }
+}
