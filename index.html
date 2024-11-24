@@ -6,71 +6,6 @@
     <title>الصفحة الرئيسية</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        /* الشريط العلوي */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-        }
-
-        .logo img {
-            height: 50px; /* حجم الشعار */
-            width: auto;
-        }
-
-        /* أزرار الزاوية العلوية اليمنى */
-        .top-right-buttons {
-            display: flex;
-            align-items: center;
-            gap: 10px; /* مسافة بين الأزرار */
-        }
-
-        .menu-button, .theme-toggle button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 60px;
-            right: 20px;
-            background: white;
-            color: black;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            z-index: 100;
-        }
-
-        .dropdown-menu.show {
-            display: block;
-        }
-
-        .menu-item {
-            padding: 10px 20px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .menu-item:last-child {
-            border-bottom: none;
-        }
-
-        .menu-item a {
-            text-decoration: none;
-            color: #333;
-        }
-
-        .theme-toggle button {
-            font-size: 18px;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -79,15 +14,15 @@
         </div>
         <div class="top-right-buttons">
             <button class="menu-button" onclick="toggleDropdown()">☰</button>
-            <div class="theme-toggle">
-                <button id="theme-toggle-sun" onclick="toggleTheme()">🌞</button>
-                <button id="theme-toggle-moon" style="display: none;" onclick="toggleTheme()">🌙</button>
-            </div>
         </div>
         <div class="dropdown-menu" id="dropdownMenu">
-            <div class="menu-item"><a href="profile.html">حسابي</a></div>
-            <div class="menu-item"><a href="settings.html">الإعدادات</a></div>
-            <div class="menu-item"><a href="logout.html">تسجيل الخروج</a></div>
+            <div class="menu-item"><a href="profile.html"><i class="fas fa-user" style="color: #007bff;"></i> حسابي</a></div>
+            <div class="menu-item"><a href="settings.html"><i class="fas fa-cog" style="color: #007bff;"></i> الإعدادات</a></div>
+            <div class="menu-item"><a href="logout.html"><i class="fas fa-sign-out-alt" style="color: #007bff;"></i> تسجيل الخروج</a></div>
+            <div class="menu-item theme-toggle">
+                <button id="theme-toggle-sun" onclick="toggleTheme()"><i class="fas fa-sun" style="color: #007bff;"></i> الوضع النهاري</button>
+                <button id="theme-toggle-moon" style="display: none;" onclick="toggleTheme()"><i class="fas fa-moon" style="color: #007bff;"></i> الوضع الليلي</button>
+            </div>
         </div>
     </header>
 
@@ -102,12 +37,12 @@
 
     <main>
         <section class="hero">
-            <div class="content-box">
+            <div class="content-box message" style="border: 2px solid; border-image: linear-gradient(135deg, #007bff, #1ac4cf) 1;">
                 <p>Albatros هو موقعك الأفضل الذي يقدم خدمات تطبيقات السوشيال ميديا وشحن التطبيقات والألعاب</p>
             </div>
             <div class="btn-container">
-                <a href="products.html" class="btn">منتجاتنا</a>
-                <a href="register.html" class="btn">إنشاء حساب</a>
+                <a href="products.html" class="btn"><i class="fas fa-box-open"></i> منتجاتنا</a>
+                <a href="register.html" class="btn"><i class="fas fa-user-plus"></i> إنشاء حساب</a>
             </div>
         </section>
     </main>
@@ -119,27 +54,6 @@
         <p>&copy; 2024 Albatros Store</p>
     </footer>
 
-    <script>
-        // التبديل بين الوضع الليلي والنهاري
-        function toggleTheme() {
-            const body = document.body;
-            const sunButton = document.getElementById('theme-toggle-sun');
-            const moonButton = document.getElementById('theme-toggle-moon');
-            body.classList.toggle('dark-mode');
-            if (body.classList.contains('dark-mode')) {
-                sunButton.style.display = 'none';
-                moonButton.style.display = 'inline-block';
-            } else {
-                sunButton.style.display = 'inline-block';
-                moonButton.style.display = 'none';
-            }
-        }
-
-        // إظهار القائمة المنسدلة
-        function toggleDropdown() {
-            const dropdownMenu = document.getElementById('dropdownMenu');
-            dropdownMenu.classList.toggle('show');
-        }
-    </script>
+    <script src="scripts.js"></script>
 </body>
 </html>
